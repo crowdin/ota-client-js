@@ -6,6 +6,10 @@ export interface ClientConfig {
      * Specify your own http client. Defult uses axios
      */
     httpClient?: HttpClient;
+    /**
+     * Disable cache of distribution manifest. Default is false
+     */
+    disableManifestCache?: boolean;
 }
 
 export interface HttpClient {
@@ -38,6 +42,7 @@ export default class OtaClient {
     private readonly httpClient: HttpClient;
 
     private manifestHolder?: Promise<Manifest>;
+    private cacheManifest = true;
 
     /**
      * @param distributionHash hash of released Crowdin project distribution
@@ -45,6 +50,7 @@ export default class OtaClient {
      */
     constructor(private distributionHash: string, config?: ClientConfig) {
         this.httpClient = config?.httpClient || new AxiosHttpClient();
+        this.cacheManifest = !!config?.disableManifestCache;
     }
 
     /**
@@ -114,7 +120,7 @@ export default class OtaClient {
     }
 
     private get manifest(): Promise<Manifest> {
-        if (this.manifestHolder) {
+        if (this.manifestHolder && !this.cacheManifest) {
             return this.manifestHolder;
         } else {
             this.manifestHolder = this.httpClient.get(`${OtaClient.BASE_URL}/${this.distributionHash}/manifest.json`);
