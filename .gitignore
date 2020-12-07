@@ -1,0 +1,7 @@
+out
+node_modules
+.idea
+coverage
+junit.xml
+.vscode
+sandbox.js

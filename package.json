@@ -1,0 +1,72 @@
+{
+  "name": "@crowdin/ota-client",
+  "version": "0.0.1",
+  "description": "JavaScript library for Crowdin OTA Content Delivery",
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crowdin/ota-client-js.git"
+  },
+  "files": [
+    "out/**/*"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint --fix \"{src,tests}/**/*.{js,ts}\"",
+    "lint-ci": "eslint \"{src,tests}/**/*.{js,ts}\"",
+    "test-coverage": "jest --config jestconfig.json --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura --coverageReporters=html"
+  },
+  "keywords": [
+    "Crowdin"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.0.10",
+    "@types/jest": "^26.0.0",
+    "@types/nock": "^10.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": ">=1",
+    "jest": "^26.4.0",
+    "jest-circus": "^26.4.0",
+    "lint-staged": ">=8",
+    "nock": "^10.0.6",
+    "prettier": "^1.18.2",
+    "ts-jest": "^26.4.0",
+    "typescript": "^4.1.2",
+    "jest-junit": "^12.0.0"
+  },
+  "dependencies": {
+    "axios": "0.21.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/crowdin/ota-client-js/issues"
+  },
+  "homepage": "https://github.com/crowdin/ota-client-js#readme",
+  "directories": {
+    "test": "tests"
+  }
+}
