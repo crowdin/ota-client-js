@@ -95,7 +95,7 @@ client.getFileTranslations(languageCode, file)
 
 </details>
 
-You can generate distribution hash for project by using Distributions API through [REST API](https://support.crowdin.com/api/v2/) or [JavaScript client](https://github.com/crowdin/ota-client-js). You first need to create distribution (at this point you will get the hash) and then release it.
+You can create a new distribution in your Crowdin project settings (*Content Delivery* tab) or using Distributions API through [REST API](https://support.crowdin.com/api/v2/). After that you will receive a *Distribution hash*.
 
 ### Client configuration
 
