@@ -1,6 +1,6 @@
 {
   "name": "@crowdin/ota-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JavaScript library for Crowdin OTA Content Delivery",
   "main": "out/index.js",
   "types": "out/index.d.ts",
@@ -20,7 +20,9 @@
     "test-coverage": "jest --config jestconfig.json --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura --coverageReporters=html"
   },
   "keywords": [
-    "Crowdin", "Over-The-Air", "Content Delivery"
+    "Crowdin",
+    "Over-The-Air",
+    "Content Delivery"
   ],
   "license": "MIT",
   "devDependencies": {
