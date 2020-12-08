@@ -20,7 +20,7 @@
     "test-coverage": "jest --config jestconfig.json --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura --coverageReporters=html"
   },
   "keywords": [
-    "Crowdin"
+    "Crowdin", "Over-The-Air", "Content Delivery"
   ],
   "license": "MIT",
   "devDependencies": {
