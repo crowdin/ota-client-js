@@ -6,16 +6,23 @@ Lightweight library for Crowdin Over-The-Air Content Delivery.
 
 Information about Crowdin OTA can be found in [blog post](https://blog.crowdin.com/2019/12/12/over-the-air-content-delivery-for-android-and-ios-apps-available-in-open-beta/).
 
-//TODO badges
+[![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
+[![npm](https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
+[![codecov](https://codecov.io/gh/crowdin/ota-client-js/branch/main/graph/badge.svg)](https://codecov.io/gh/crowdin/ota-client-js)
+[![GitHub issues](https://img.shields.io/github/issues/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/issues)
+[![License](https://img.shields.io/github/license/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/blob/main/LICENSE)
 
 ## Build Status
 
-//TODO CI/CD
+| Azure CI (Linux) | Azure CI (Windows) | Azure CI (MacOS) |
+|--------------------|------------------|------------------|
+|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Ubuntu?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&branchName=main)|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Windows?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&branchName=main)|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/MacOS?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&branchName=main)
+|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/29/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&branchName=main)|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/31/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&branchName=main)|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/30/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&branchName=main)
 
 ## Table of Contents
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [Contribution](#contribution)
+* [Contributing](#contributing)
 * [Seeking Assistance](#seeking-assistance)
 * [License](#license)
 
@@ -88,7 +95,7 @@ client.getFileTranslations(languageCode, file)
 
 </details>
 
-You can generate distribution hash for project by using Distributions API through [REST API](https://support.crowdin.com/api/v2/) or [JavaScript client](https://github.com/crowdin/crowdin-api-client-js). You first need to create distribution (at this point you will get the hash) and then release it.
+You can generate distribution hash for project by using Distributions API through [REST API](https://support.crowdin.com/api/v2/) or [JavaScript client](https://github.com/crowdin/ota-client-js). You first need to create distribution (at this point you will get the hash) and then release it.
 
 ### Client configuration
 
@@ -112,23 +119,16 @@ const hash = '{distribution_hash}';
 const client = new otaClient(hash);
 ```
 
-## Contribution
-We are happy to accept contributions to the Crowdin OTA JavaScript client. To contribute please do the following:
-1. Fork the repository on GitHub.
-2. Decide which code you want to submit. Commit your changes and push to the new branch.
-3. Ensure that your code adheres to standard conventions, as used in the rest of the library.
-4. Ensure that there are unit tests for your code.
-5. Submit a pull request with your patch on Github.
+## Contributing
+If you want to contribute please read the [Contributing](/CONTRIBUTING.md) guidelines.
 
 ## Seeking Assistance
 If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/ota-client-js/issues).
 
-If you've found an error in these samples, please [contact](https://crowdin.com/contacts) our Support Team.
+If you've found an error in these samples, please [Contact Customer Success Service](https://crowdin.com/contacts).
 
 ## License
 <pre>
-Copyright © 2020 Crowdin
-
 The Crowdin OTA JavaScript client is licensed under the MIT License. 
 See the LICENSE.md file distributed with this work for additional 
 information regarding copyright ownership.
