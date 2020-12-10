@@ -58,7 +58,7 @@ const languageCode = 'uk';
 // one of files from client.listFiles
 const file = 'file';
 // get file translations
-client.getFileTranslations(languageCode, file)
+client.getFileTranslations(file, languageCode)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -88,7 +88,7 @@ const languageCode = 'uk';
 // one of files from client.listFiles
 const file = 'file';
 // get file translations
-client.getFileTranslations(languageCode, file)
+client.getFileTranslations(file, languageCode)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
