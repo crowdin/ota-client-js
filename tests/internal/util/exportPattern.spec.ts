@@ -20,9 +20,6 @@ describe('Export Pattern Util', () => {
     });
 
     it('should throw error for invalid language code', () => {
-        const e = (): void => {
-            replaceLanguagePlaceholders('test', 'invalidLang');
-        };
-        expect(e).toThrowError();
+        expect(() => replaceLanguagePlaceholders('test', 'invalidLang')).toThrowError();
     });
 });

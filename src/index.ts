@@ -10,6 +10,10 @@ export interface ClientConfig {
      * Disable cache of distribution manifest. Default is false
      */
     disableManifestCache?: boolean;
+    /**
+     * Default language code to be used if language was not passed as an input argument of the method
+     */
+    languageCode?: string;
 }
 
 export interface HttpClient {
@@ -44,6 +48,8 @@ export default class OtaClient {
     private manifestHolder?: Promise<Manifest>;
     private cacheManifest = true;
 
+    private locale?: string;
+
     /**
      * @param distributionHash hash of released Crowdin project distribution
      * @param config client config
@@ -51,6 +57,7 @@ export default class OtaClient {
     constructor(private distributionHash: string, config?: ClientConfig) {
         this.httpClient = config?.httpClient || new AxiosHttpClient();
         this.cacheManifest = !!config?.disableManifestCache;
+        this.locale = config?.languageCode;
     }
 
     /**
@@ -58,6 +65,22 @@ export default class OtaClient {
      */
     getHash(): string {
         return this.distributionHash;
+    }
+
+    /**
+     * Default language code to be used if language was not passed as an input argument of the method
+     *
+     * @param languageCode laguage code
+     */
+    setCurrentLocale(languageCode?: string): void {
+        this.locale = languageCode;
+    }
+
+    /**
+     * Get language code
+     */
+    getCurrentLocale(): string | undefined {
+        return this.locale;
     }
 
     /**
@@ -93,11 +116,12 @@ export default class OtaClient {
      *
      * @param languageCode language code
      */
-    async getLanguageTranslations(languageCode: string): Promise<LanguageTranslations[]> {
+    async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
+        const language = this.getLanguageCode(languageCode);
         const files = await this.listFiles();
         return Promise.all(
             files.map(async file => {
-                const content = await this.getFileTranslations(languageCode, file);
+                const content = await this.getFileTranslations(file, language);
                 return { content, file } as LanguageTranslations;
             }),
         );
@@ -106,15 +130,16 @@ export default class OtaClient {
     /**
      * Returns file translations
      *
-     * @param languageCode language code
      * @param file file from distribution
+     * @param languageCode language code
      */
-    async getFileTranslations(languageCode: string, file: string): Promise<string> {
+    async getFileTranslations(file: string, languageCode?: string): Promise<string> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
+        const language = this.getLanguageCode(languageCode);
         if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, languageCode);
+            url += replaceLanguagePlaceholders(file, language);
         } else {
-            url += `/${languageCode}${file}`;
+            url += `/${language}${file}`;
         }
         return this.httpClient.get(url);
     }
@@ -125,6 +150,17 @@ export default class OtaClient {
         } else {
             this.manifestHolder = this.httpClient.get(`${OtaClient.BASE_URL}/${this.distributionHash}/manifest.json`);
             return this.manifestHolder;
+        }
+    }
+
+    private getLanguageCode(lang?: string): string {
+        const languageCode = lang || this.getCurrentLocale();
+        if (languageCode) {
+            return languageCode;
+        } else {
+            throw new Error(
+                'Language code should be either provided through input arguments or by "setCurrentLocale" method',
+            );
         }
     }
 }

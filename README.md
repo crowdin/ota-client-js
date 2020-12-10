@@ -107,16 +107,19 @@ import otaClient, { ClientConfig } from'@crowdin/ota-client';
 
 const config: ClientConfig = {
   // provide custom http client, default will axios
-  httpClient: customHttpClient
+  httpClient: customHttpClient,
   // disable caching of manifest file which will lead to additional request for each client method
-  disableManifestCache: true
+  disableManifestCache: true,
+  // default language code to be used if language was not passed as an input argument of the method
+  // this can be also configured later on by using "setCurrentLocale" method
+  languageCode: 'uk'
 };
 
 // distribution hash
 const hash = '{distribution_hash}';
 
 // initialization of crowdin ota client with specific configuration
-const client = new otaClient(hash);
+const client = new otaClient(hash, config);
 ```
 
 ## Contributing
