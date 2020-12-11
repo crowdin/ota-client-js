@@ -58,7 +58,7 @@ const languageCode = 'uk';
 // one of files from client.listFiles
 const file = 'file';
 // get file translations
-client.getFileTranslations(languageCode, file)
+client.getFileTranslations(file, languageCode)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -88,7 +88,7 @@ const languageCode = 'uk';
 // one of files from client.listFiles
 const file = 'file';
 // get file translations
-client.getFileTranslations(languageCode, file)
+client.getFileTranslations(file, languageCode)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -107,16 +107,49 @@ import otaClient, { ClientConfig } from'@crowdin/ota-client';
 
 const config: ClientConfig = {
   // provide custom http client, default will axios
-  httpClient: customHttpClient
+  httpClient: customHttpClient,
   // disable caching of manifest file which will lead to additional request for each client method
-  disableManifestCache: true
+  disableManifestCache: true,
+  // default language code to be used if language was not passed as an input argument of the method
+  // this can be also configured later on by using "setCurrentLocale" method
+  languageCode: 'uk',
+  // disable caching of translation strings which is used for JSON-based client methods
+  disableStringsCache: true,
+  // disable deep merge of json-based files for string-based methods and use shallow merge
+  disableJsonDeepMerge: true
 };
 
 // distribution hash
 const hash = '{distribution_hash}';
 
 // initialization of crowdin ota client with specific configuration
+const client = new otaClient(hash, config);
+```
+
+### JSON-based files
+
+Quite often you will need to work only with JSON files in distribution and for such situations client contains several useful methods to work with them.
+
+```typescript
+import otaClient from'@crowdin/ota-client';
+
+const hash = '{distribution_hash}';
+
 const client = new otaClient(hash);
+
+// will return all translation strings for all languages from all json files 
+client.getStrings()
+  .then(res => {
+    //get needed translation by language + key
+    console.log(res.uk.application.title);
+  })
+  .catch(error => console.error(error));
+
+// or get concrete translation by key
+client.getStringByKey(['application', 'title'], '/folder/file.json', 'uk')
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+
 ```
 
 ## Contributing
