@@ -3,13 +3,32 @@ import OtaClient, { Manifest } from '../src/index';
 
 describe('OTA client', () => {
     let scope: nock.Scope;
-    const hash = 'testHash';
-    const client: OtaClient = new OtaClient(hash);
     const languageCode = 'uk';
+    const hash = 'testHash';
+    const hashForStrings = 'jsonTestHash';
+    const client: OtaClient = new OtaClient(hash);
+    const clientWithJsonFiles: OtaClient = new OtaClient(hashForStrings, { languageCode });
     const fileContent = '"apple","яблуко","","",""';
     const filePath = '/folder1/file1.csv';
     const manifest: Manifest = {
         files: [filePath],
+        languages: [languageCode],
+        timestamp: Date.now(),
+    };
+    const jsonFilePath1 = '/folder/file1.json';
+    const jsonFilePath2 = '/folder/file2.json';
+    const jsonFileContent1 = {
+        application: {
+            title: 'Тестова назва',
+        },
+    };
+    const jsonFileContent2 = {
+        application: {
+            description: 'Тестовий опис',
+        },
+    };
+    const manifestWithJsonFiles: Manifest = {
+        files: [jsonFilePath1, jsonFilePath2],
         languages: [languageCode],
         timestamp: Date.now(),
     };
@@ -20,7 +39,13 @@ describe('OTA client', () => {
             .reply(200, manifest)
             .get(`/${hash}/content/${languageCode}${filePath}`)
             .times(3)
-            .reply(200, fileContent);
+            .reply(200, fileContent)
+            .get(`/${hashForStrings}/manifest.json`)
+            .reply(200, manifestWithJsonFiles)
+            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath1}`)
+            .reply(200, jsonFileContent1)
+            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath2}`)
+            .reply(200, jsonFileContent2);
     });
 
     afterAll(() => {
@@ -69,5 +94,23 @@ describe('OTA client', () => {
     it('should not get translations for language if language was not specified', async () => {
         const newClient = new OtaClient(hash);
         expect(async () => await newClient.getLanguageTranslations()).rejects.toThrowError();
+    });
+
+    it('should return translation strings for all languages', async () => {
+        const strings = await clientWithJsonFiles.getStrings();
+        expect(strings[languageCode]).toBeDefined();
+        expect(strings[languageCode].application.title).toBe(jsonFileContent1.application.title);
+        expect(strings[languageCode].application.description).toBe(jsonFileContent2.application.description);
+    });
+
+    it('should return translation strings for specific language', async () => {
+        const strings = await clientWithJsonFiles.getStringsByLocale();
+        expect(strings.application.title).toBe(jsonFileContent1.application.title);
+        expect(strings.application.description).toBe(jsonFileContent2.application.description);
+    });
+
+    it('should return translation string by key', async () => {
+        const title = await clientWithJsonFiles.getStringByKey(['application', 'title']);
+        expect(title).toBe(jsonFileContent1.application.title);
     });
 });
