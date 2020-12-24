@@ -50,7 +50,7 @@ const client = new otaClient(hash);
 
 // get list of files in distribution
 client.listFiles()
-  .then(files => console.log(file))
+  .then(file => console.log(file))
   .catch(error => console.error(error));
 
 // one of target languages in Crowdin project (could be retrieved via client.listLanguages)
@@ -66,7 +66,7 @@ client.getFileTranslations(file, languageCode)
 </details>
 
 <details>
-<summary>Javascript</summary>
+<summary>Javascript ES6 modules</summary>
 
 ```javascript
 import otaClient from '@crowdin/ota-client';
@@ -80,7 +80,36 @@ const client = new otaClient(hash);
 
 // get list of files in distribution
 client.listFiles()
-  .then(files => console.log(file))
+  .then(file => console.log(file))
+  .catch(error => console.error(error));
+
+// one of target languages in Crowdin project (could be retrieved via client.listLanguages)
+const languageCode = 'uk';
+// one of files from client.listFiles
+const file = 'file';
+// get file translations
+client.getFileTranslations(file, languageCode)
+  .then(translations => console.log(translations))
+  .catch(error => console.error(error));
+```
+
+</details>
+
+<details>
+<summary>Javascript CommonJS</summary>
+
+```javascript
+const otaClient = require('@crowdin/ota-client').default;
+
+// distribution hash
+const hash = '{distribution_hash}';
+
+// initialization of crowdin ota client
+const client = new otaClient(hash);
+
+// get list of files in distribution
+client.listFiles()
+  .then(file => console.log(file))
   .catch(error => console.error(error));
 
 // one of target languages in Crowdin project (could be retrieved via client.listLanguages)
