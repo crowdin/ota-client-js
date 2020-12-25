@@ -6,6 +6,8 @@ Lightweight library for Crowdin Over-The-Air Content Delivery.
 
 Information about Crowdin OTA can be found in the [Knowledge Base article](https://support.crowdin.com/content-delivery/).
 
+## Status
+
 [![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
 [![npm](https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
 [![codecov](https://codecov.io/gh/crowdin/ota-client-js/branch/main/graph/badge.svg)](https://codecov.io/gh/crowdin/ota-client-js)
