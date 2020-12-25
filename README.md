@@ -4,7 +4,7 @@
 
 Lightweight library for Crowdin Over-The-Air Content Delivery.
 
-Information about Crowdin OTA can be found in [blog post](https://blog.crowdin.com/2019/12/12/over-the-air-content-delivery-for-android-and-ios-apps-available-in-open-beta/).
+Information about Crowdin OTA can be found in the [Knowledge Base article](https://support.crowdin.com/content-delivery/).
 
 [![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
 [![npm](https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
