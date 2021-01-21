@@ -103,6 +103,13 @@ export default class OtaClient {
     }
 
     /**
+     * List timestamp in distribution
+     */
+    async getManifestTimestamp() {
+        return (await this.manifest).timestamp;
+    }
+
+    /**
      * List of files in distribution
      */
     async listFiles(): Promise<string[]> {
