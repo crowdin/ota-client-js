@@ -105,7 +105,7 @@ export default class OtaClient {
     /**
      * List timestamp in distribution
      */
-    async getManifestTimestamp() {
+    async getManifestTimestamp(): Promise<number> {
         return (await this.manifest).timestamp;
     }
 
