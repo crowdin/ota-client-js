@@ -2729,7 +2729,7 @@ export function includesLanguagePlaceholders(str: string): boolean {
 }
 
 export function replaceLanguagePlaceholders(str: string, languageCode: string): string {
-    const language = languages.find(l => l.twoLettersCode === languageCode);
+    const language = languages.find(l => l.twoLettersCode === languageCode || l.locale === languageCode);
     if (!language) {
         throw new Error(`Unsupported language code : ${languageCode}`);
     }

@@ -2,6 +2,7 @@ import * as nock from 'nock';
 import OtaClient, { Manifest } from '../src/index';
 
 describe('OTA client', () => {
+    const now = Date.now();
     let scope: nock.Scope;
     const languageCode = 'uk';
     const hash = 'testHash';
@@ -13,7 +14,7 @@ describe('OTA client', () => {
     const manifest: Manifest = {
         files: [filePath],
         languages: [languageCode],
-        timestamp: Date.now(),
+        timestamp: now,
     };
     const jsonFilePath1 = '/folder/file1.json';
     const jsonFilePath2 = '/folder/file2.json';
@@ -30,7 +31,7 @@ describe('OTA client', () => {
     const manifestWithJsonFiles: Manifest = {
         files: [jsonFilePath1, jsonFilePath2],
         languages: [languageCode],
-        timestamp: Date.now(),
+        timestamp: now,
     };
 
     beforeAll(() => {
@@ -60,6 +61,12 @@ describe('OTA client', () => {
         expect(client.getCurrentLocale()).toBeUndefined();
         client.setCurrentLocale(languageCode);
         expect(client.getCurrentLocale()).toBe(languageCode);
+    });
+
+    it('should return manifest timestamp', async () => {
+        const timestamp = await client.getManifestTimestamp();
+        expect(timestamp).toEqual(manifest.timestamp);
+        expect(timestamp).toEqual(now);
     });
 
     it('should return list of files from manifest', async () => {
