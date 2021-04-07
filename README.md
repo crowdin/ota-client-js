@@ -142,7 +142,7 @@ Also there are several helper methods.
 | Methods for JSON-based files |
 | `getStrings`                 | Returns translations for all languages | `file` (optional, e.g. json file from `listFiles`) |
 | `getStringsByLocale`         | Returns translations for specific language | `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
-| `getStringByKey`             | Returns translation for language for specific key | `key`, `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`)) |
+| `getStringByKey`             | Returns translation for language for specific key | `key`, `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
 | Helper methods |
 | `getHash`                    | Returns distribution hash | |
 | `setCurrentLocale`           | Define global language for client instance | `languageCode` |
