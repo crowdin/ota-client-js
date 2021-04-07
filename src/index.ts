@@ -223,7 +223,7 @@ export default class OtaClient {
     /**
      * Clear cache of translation strings
      */
-    cleatStringsCache(): void {
+    clearStringsCache(): void {
         this.stringsCache = {};
     }
 
