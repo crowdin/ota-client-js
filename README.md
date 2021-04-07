@@ -151,6 +151,7 @@ Also there are several helper methods.
 | `listFiles`                  | List of files in distribution | |
 | `listLanguages`              | List of project language codes | |
 | `clearStringsCache`          | Clear cache of translation strings | |
+| `getLanguageMappings`        | Get project language mapping | |
 
 Example of loading strings from JSON files
 

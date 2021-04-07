@@ -38,6 +38,15 @@ export interface Manifest {
     files: string[];
     languages: string[];
     timestamp: number;
+    language_mapping?: LanguageMappings;
+}
+
+export interface LanguageMappings {
+    [languageCode: string]: LanguageMapping;
+}
+
+export interface LanguageMapping {
+    [placeholder: string]: string;
 }
 
 export interface Translations {
@@ -124,6 +133,13 @@ export default class OtaClient {
     }
 
     /**
+     * Language mappings
+     */
+    async getLanguageMappings(): Promise<LanguageMappings | undefined> {
+        return (await this.manifest).language_mapping;
+    }
+
+    /**
      * Returns all translations per each language code
      */
     async getTranslations(): Promise<Translations> {
@@ -162,8 +178,10 @@ export default class OtaClient {
     async getFileTranslations(file: string, languageCode?: string): Promise<string | any> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
+        const languageMappings = await this.getLanguageMappings();
+        const languageMapping = (languageMappings || {})[language];
         if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, language);
+            url += replaceLanguagePlaceholders(file, language, languageMapping);
         } else {
             url += `/${language}${file}`;
         }

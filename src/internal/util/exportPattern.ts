@@ -1,3 +1,5 @@
+import { LanguageMapping } from '../..';
+
 interface Language {
     name: string;
     twoLettersCode: string;
@@ -2728,7 +2730,11 @@ export function includesLanguagePlaceholders(str: string): boolean {
     return Object.keys(languagePlaceholders).some(placeholder => str.includes(placeholder));
 }
 
-export function replaceLanguagePlaceholders(str: string, languageCode: string): string {
+export function replaceLanguagePlaceholders(
+    str: string,
+    languageCode: string,
+    languageMapping?: LanguageMapping,
+): string {
     const language = languages.find(l => l.twoLettersCode === languageCode || l.locale === languageCode);
     if (!language) {
         throw new Error(`Unsupported language code : ${languageCode}`);
@@ -2736,7 +2742,11 @@ export function replaceLanguagePlaceholders(str: string, languageCode: string): 
     let result = str;
     for (const placeholder of Object.keys(languagePlaceholders)) {
         if (result.includes(placeholder)) {
-            const replaceValue = languagePlaceholders[placeholder](language);
+            const cleanPlaceholder = placeholder.slice(1, -1);
+            const replaceValue =
+                languageMapping && languageMapping[cleanPlaceholder]
+                    ? languageMapping[cleanPlaceholder]
+                    : languagePlaceholders[placeholder](language);
             result = result.replace(placeholder, replaceValue);
         }
     }
