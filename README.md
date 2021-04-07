@@ -152,6 +152,36 @@ Also there are several helper methods.
 | `listLanguages`              | List of project language codes | |
 | `clearStringsCache`          | Clear cache of translation strings | |
 
+Example of loading strings from JSON files
+
+```typescript
+import otaClient from'@crowdin/ota-client';
+
+const hash = '{distribution_hash}';
+
+const client = new otaClient(hash);
+
+// will return all translation strings for all languages from all json files 
+client.getStrings()
+  .then(res => {
+    //get needed translation by language + key
+    console.log(res.uk.application.title);
+  })
+  .catch(error => console.error(error));
+
+// or get concrete translation by key
+client.getStringByKey(['application', 'title'], '/folder/file.json', 'uk')
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+
+// or define global language and do not pass it everywhere
+client.setCurrentLocale('uk');
+client.getStringByKey(['application', 'title'], '/folder/file.json')
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+
+```
+
 ### Client configuration
 
 You also can customize client for your needs.
@@ -180,32 +210,6 @@ const config: ClientConfig = {
 const hash = '7a0c1ee2622bc85a4030297uo3b';
 
 const client = new otaClient(hash, config);
-```
-
-### JSON-based files
-
-Quite often you will need to work only with JSON files in distribution and for such situations client contains several useful methods to work with them.
-
-```typescript
-import otaClient from'@crowdin/ota-client';
-
-const hash = '{distribution_hash}';
-
-const client = new otaClient(hash);
-
-// will return all translation strings for all languages from all json files 
-client.getStrings()
-  .then(res => {
-    //get needed translation by language + key
-    console.log(res.uk.application.title);
-  })
-  .catch(error => console.error(error));
-
-// or get concrete translation by key
-client.getStringByKey(['application', 'title'], '/folder/file.json', 'uk')
-  .then(title => console.log(title))
-  .catch(error => console.error(error));
-
 ```
 
 ## Contributing
