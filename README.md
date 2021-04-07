@@ -128,38 +128,32 @@ client.getFileTranslations(file, languageCode)
 
 You can create a new distribution in your Crowdin project settings (*Content Delivery* tab) or using Distributions API through [REST API](https://support.crowdin.com/api/v2/). After that you will receive a *Distribution hash*.
 
-### Client configuration
+### Client methods
 
-You also can customize client for your needs.
-In constructor as a second (optional) argument you can pass configuration object.
+Client contains methods to retrieve translation strings from files as a plain text and from JSON files as an objects.
+Also there are several helper methods.
 
-```typescript
-import otaClient, { ClientConfig } from'@crowdin/ota-client';
+| Method name                  | Description | Input arguments |
+|------------------------------|-------------|-----------------|
+| Methods for plain text       |
+| `getTranslations`            | Returns translations for all languages | |
+| `getLanguageTranslations`    | Returns translations for specific language | `languageCode` (optional, otherwise use `setCurrentLocale`) |
+| `getFileTranslations`        | Returns translations for specific language and file | `file` (e.g. one from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
+| Methods for JSON-based files |
+| `getStrings`                 | Returns translations for all languages | `file` (optional, e.g. json file from `listFiles`) |
+| `getStringsByLocale`         | Returns translations for specific language | `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
+| `getStringByKey`             | Returns translation for language for specific key | `key`, `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
+| Helper methods |
+| `getHash`                    | Returns distribution hash | |
+| `setCurrentLocale`           | Define global language for client instance | `languageCode` |
+| `getCurrentLocale`           | Get global language for client instance | |
+| `getManifestTimestamp`       | Get manifest timestamp of distribution | |
+| `listFiles`                  | List of files in distribution | |
+| `listLanguages`              | List of project language codes | |
+| `clearStringsCache`          | Clear cache of translation strings | |
+| `getLanguageMappings`        | Get project language mapping | |
 
-const config: ClientConfig = {
-  // provide custom http client, default will axios
-  httpClient: customHttpClient,
-  // disable caching of manifest file which will lead to additional request for each client method
-  disableManifestCache: true,
-  // default language code to be used if language was not passed as an input argument of the method
-  // this can be also configured later on by using "setCurrentLocale" method
-  languageCode: 'uk',
-  // disable caching of translation strings which is used for JSON-based client methods
-  disableStringsCache: true,
-  // disable deep merge of json-based files for string-based methods and use shallow merge
-  disableJsonDeepMerge: true
-};
-
-// distribution hash
-const hash = '{distribution_hash}';
-
-// initialization of crowdin ota client with specific configuration
-const client = new otaClient(hash, config);
-```
-
-### JSON-based files
-
-Quite often you will need to work only with JSON files in distribution and for such situations client contains several useful methods to work with them.
+Example of loading strings from JSON files
 
 ```typescript
 import otaClient from'@crowdin/ota-client';
@@ -181,6 +175,42 @@ client.getStringByKey(['application', 'title'], '/folder/file.json', 'uk')
   .then(title => console.log(title))
   .catch(error => console.error(error));
 
+// or define global language and do not pass it everywhere
+client.setCurrentLocale('uk');
+client.getStringByKey(['application', 'title'], '/folder/file.json')
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+
+```
+
+### Client configuration
+
+You also can customize client for your needs.
+In constructor as a second (optional) argument you can pass configuration object.
+
+| Config option              | Description               | Example |
+|----------------------------|---------------------------|---------|
+| `hash`                     | Distribution Hash         |`7a0c1ee2622bc85a4030297uo3b` |
+| `httpClient`               | Custom HTTP client |[Axios (default)](https://github.com/crowdin/ota-client-js/blob/main/src/internal/http/axiosClient.ts) |
+| `disableManifestCache`     | Disable caching of manifest file which will lead to additional request for each client method  |`true` |
+| `languageCode`             | Вefault language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method) |`uk` |
+| `disableStringsCache`      | Disable caching of translation strings which is used for JSON-based client methods |`true` |
+| `disableJsonDeepMerge`     | Disable deep merge of json-based files for string-based methods and use shallow merge |`true` |
+
+```typescript
+import otaClient, { ClientConfig } from'@crowdin/ota-client';
+
+const config: ClientConfig = {
+  httpClient: customHttpClient,
+  disableManifestCache: true,
+  languageCode: 'uk',
+  disableStringsCache: true,
+  disableJsonDeepMerge: true
+};
+
+const hash = '7a0c1ee2622bc85a4030297uo3b';
+
+const client = new otaClient(hash, config);
 ```
 
 ## Contributing

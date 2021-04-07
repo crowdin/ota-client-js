@@ -11,10 +11,17 @@ describe('OTA client', () => {
     const clientWithJsonFiles: OtaClient = new OtaClient(hashForStrings, { languageCode });
     const fileContent = '"apple","яблуко","","",""';
     const filePath = '/folder1/file1.csv';
+    const customLanguageLocale = 'ua';
     const manifest: Manifest = {
         files: [filePath],
         languages: [languageCode],
         timestamp: now,
+        /*eslint-disable-next-line @typescript-eslint/camelcase*/
+        language_mapping: {
+            uk: {
+                locale: customLanguageLocale,
+            },
+        },
     };
     const jsonFilePath1 = '/folder/file1.json';
     const jsonFilePath2 = '/folder/file2.json';
@@ -77,6 +84,13 @@ describe('OTA client', () => {
     it('should return list of languages from manifest', async () => {
         const languages = await client.listLanguages();
         expect(languages).toEqual(manifest.languages);
+    });
+
+    it('should return language mappings', async () => {
+        const mappings = (await client.getLanguageMappings()) || {};
+        expect(mappings).toBeDefined();
+        expect(mappings[languageCode]).toBeDefined();
+        expect(mappings[languageCode].locale).toEqual(customLanguageLocale);
     });
 
     it('should return file translations', async () => {
