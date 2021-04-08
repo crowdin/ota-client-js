@@ -193,7 +193,7 @@ In constructor as a second (optional) argument you can pass configuration object
 | `hash`                     | Distribution Hash         |`7a0c1ee2622bc85a4030297uo3b` |
 | `httpClient`               | Custom HTTP client |[Axios (default)](https://github.com/crowdin/ota-client-js/blob/main/src/internal/http/axiosClient.ts) |
 | `disableManifestCache`     | Disable caching of manifest file which will lead to additional request for each client method  |`true` |
-| `languageCode`             | Вefault language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method) |`uk` |
+| `languageCode`             | Default language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method) |`uk` |
 | `disableStringsCache`      | Disable caching of translation strings which is used for JSON-based client methods |`true` |
 | `disableJsonDeepMerge`     | Disable deep merge of json-based files for string-based methods and use shallow merge |`true` |
 
