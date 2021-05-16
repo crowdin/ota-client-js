@@ -39,10 +39,15 @@ export interface Manifest {
     languages: string[];
     timestamp: number;
     language_mapping?: LanguageMappings;
+    custom_languages?: CustomLanguages;
 }
 
 export interface LanguageMappings {
     [languageCode: string]: LanguageMapping;
+}
+
+export interface CustomLanguages {
+    [languageCode: string]: CustomLanguage;
 }
 
 export interface LanguageMapping {
@@ -60,6 +65,16 @@ export interface LanguageTranslations {
 
 export interface LanguageStrings {
     [languageCode: string]: any;
+}
+
+export interface CustomLanguage {
+    two_letters_code: string;
+    three_letters_code: string;
+    locale: string;
+    locale_with_underscore: string;
+    android_code: string;
+    osx_code: string;
+    osx_locale: string;
 }
 
 export default class OtaClient {
@@ -140,6 +155,13 @@ export default class OtaClient {
     }
 
     /**
+     * Custom languages
+     */
+    async getCustomLanguages(): Promise<CustomLanguages | undefined> {
+        return (await this.manifest).custom_languages;
+    }
+
+    /**
      * Returns all translations per each language code
      */
     async getTranslations(): Promise<Translations> {
@@ -179,9 +201,11 @@ export default class OtaClient {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
         const languageMappings = await this.getLanguageMappings();
+        const customLanguages = await this.getCustomLanguages();
         const languageMapping = (languageMappings || {})[language];
+        const customLanguage = (customLanguages || {})[language];
         if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, language, languageMapping);
+            url += replaceLanguagePlaceholders(file, language, languageMapping, customLanguage);
         } else {
             url += `/${language}${file}`;
         }
