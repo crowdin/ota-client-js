@@ -1,10 +1,11 @@
-import { LanguageMapping } from '../..';
+import { CustomLanguage, LanguageMapping } from '../..';
 
 interface Language {
     name: string;
     twoLettersCode: string;
     threeLettersCode: string;
     locale: string;
+    localeWithUnderscore?: string;
     androidCode: string;
     osxCode: string;
     osxLocale: string;
@@ -17,7 +18,7 @@ const languagePlaceholders: { [placeholder: string]: Mapper<Language, string> } 
     '%two_letters_code%': lang => lang.twoLettersCode,
     '%three_letters_code%': lang => lang.threeLettersCode,
     '%locale%': lang => lang.locale,
-    '%locale_with_underscore%': lang => lang.locale.replace(/-/g, '_'),
+    '%locale_with_underscore%': lang => lang.localeWithUnderscore || lang.locale.replace(/-/g, '_'),
     '%android_code%': lang => lang.androidCode,
     '%osx_code%': lang => lang.osxCode,
     '%osx_locale%': lang => lang.osxLocale,
@@ -2734,8 +2735,23 @@ export function replaceLanguagePlaceholders(
     str: string,
     languageCode: string,
     languageMapping?: LanguageMapping,
+    customLanguage?: CustomLanguage,
 ): string {
-    const language = languages.find(l => l.twoLettersCode === languageCode || l.locale === languageCode);
+    let language: Language | undefined;
+    if (customLanguage) {
+        language = {
+            name: languageCode,
+            twoLettersCode: customLanguage.two_letters_code,
+            threeLettersCode: customLanguage.three_letters_code,
+            locale: customLanguage.locale,
+            localeWithUnderscore: customLanguage.locale_with_underscore,
+            androidCode: customLanguage.android_code,
+            osxCode: customLanguage.osx_code,
+            osxLocale: customLanguage.osx_code,
+        };
+    } else {
+        language = languages.find(l => l.twoLettersCode === languageCode || l.locale === languageCode);
+    }
     if (!language) {
         throw new Error(`Unsupported language code : ${languageCode}`);
     }

@@ -152,6 +152,7 @@ Also there are several helper methods.
 | `listLanguages`              | List of project language codes | |
 | `clearStringsCache`          | Clear cache of translation strings | |
 | `getLanguageMappings`        | Get project language mapping | |
+| `getCustomLanguages`         | Get project custom languages | |
 
 Example of loading strings from JSON files
 
