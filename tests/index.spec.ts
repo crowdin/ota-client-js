@@ -45,14 +45,14 @@ describe('OTA client', () => {
         scope = nock(OtaClient.BASE_URL)
             .get(`/${hash}/manifest.json`)
             .reply(200, manifest)
-            .get(`/${hash}/content/${languageCode}${filePath}`)
+            .get(`/${hash}/content/${languageCode}${filePath}?timestamp=${now}`)
             .times(3)
             .reply(200, fileContent)
             .get(`/${hashForStrings}/manifest.json`)
             .reply(200, manifestWithJsonFiles)
-            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath1}`)
+            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath1}?timestamp=${now}`)
             .reply(200, jsonFileContent1)
-            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath2}`)
+            .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath2}?timestamp=${now}`)
             .reply(200, jsonFileContent2);
     });
 

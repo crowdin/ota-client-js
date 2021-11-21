@@ -209,6 +209,8 @@ export default class OtaClient {
         } else {
             url += `/${language}${file}`;
         }
+        const timestamp = await this.getManifestTimestamp();
+        url += `?timestamp=${timestamp}`;
         return this.httpClient.get(url);
     }
 
