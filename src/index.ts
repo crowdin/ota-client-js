@@ -85,7 +85,7 @@ export default class OtaClient {
     private manifestHolder?: Promise<Manifest>;
     private disableManifestCache = false;
 
-    private stringsCache: { [file: string]: Promise<any> } = {};
+    private stringsCache: { [file: string]: { [language: string]: Promise<any> } } = {};
     private disableStringsCache = false;
 
     private disableJsonDeepMerge = false;
@@ -273,13 +273,16 @@ export default class OtaClient {
         let strings = {};
         for (const filePath of files) {
             let content;
-            if (!!this.stringsCache[filePath]) {
-                content = await this.stringsCache[filePath];
+            if (!!(this.stringsCache[filePath] || {})[language]) {
+                content = await this.stringsCache[filePath][language];
             } else {
                 if (!this.disableStringsCache) {
-                    this.stringsCache[filePath] = this.getFileTranslations(filePath, language);
+                    this.stringsCache[filePath] = {
+                        ...this.stringsCache[filePath],
+                        [language]: this.getFileTranslations(filePath, language),
+                    };
                 }
-                content = await this.stringsCache[filePath];
+                content = await this.stringsCache[filePath][language];
             }
             if (this.disableJsonDeepMerge) {
                 strings = { ...strings, ...content };
