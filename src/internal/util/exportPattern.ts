@@ -2876,7 +2876,7 @@ export function replaceLanguagePlaceholders(
             osxLocale: customLanguage.osx_code,
         };
     } else {
-        language = languages.find(l => l.twoLettersCode === languageCode || l.locale === languageCode);
+        language = languages.find(l => l.osxLocale === languageCode || l.locale === languageCode);
     }
     if (!language) {
         throw new Error(`Unsupported language code : ${languageCode}`);
