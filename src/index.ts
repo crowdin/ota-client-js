@@ -183,12 +183,16 @@ export default class OtaClient {
     async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
         const language = this.getLanguageCode(languageCode);
         const files = await this.listFiles();
-        return Promise.all(
+        const languageTranslations = await Promise.all(
             files.map(async file => {
                 const content = await this.getFileTranslations(file, language);
-                return { content, file } as LanguageTranslations;
+                if (!content) {
+                    return null;
+                }
+                return { content, file };
             }),
         );
+        return languageTranslations.filter(Boolean) as LanguageTranslations[];
     }
 
     /**
@@ -211,7 +215,7 @@ export default class OtaClient {
         }
         const timestamp = await this.getManifestTimestamp();
         url += `?timestamp=${timestamp}`;
-        return this.httpClient.get(url);
+        return this.httpClient.get(url).catch(() => null);
     }
 
     /**
