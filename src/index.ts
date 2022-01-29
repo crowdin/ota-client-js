@@ -60,7 +60,7 @@ export interface Translations {
 
 export interface LanguageTranslations {
     file: string;
-    content: string | any;
+    content: string | any | null;
 }
 
 export interface LanguageStrings {
@@ -186,7 +186,7 @@ export default class OtaClient {
         return Promise.all(
             files.map(async file => {
                 const content = await this.getFileTranslations(file, language);
-                return { content, file } as LanguageTranslations;
+                return { content, file };
             }),
         );
     }
@@ -197,7 +197,7 @@ export default class OtaClient {
      * @param file file from distribution
      * @param languageCode language code
      */
-    async getFileTranslations(file: string, languageCode?: string): Promise<string | any> {
+    async getFileTranslations(file: string, languageCode?: string): Promise<string | any | null> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
         const languageMappings = await this.getLanguageMappings();
@@ -211,7 +211,7 @@ export default class OtaClient {
         }
         const timestamp = await this.getManifestTimestamp();
         url += `?timestamp=${timestamp}`;
-        return this.httpClient.get(url);
+        return this.httpClient.get<string | any>(url).catch(() => null);
     }
 
     /**
