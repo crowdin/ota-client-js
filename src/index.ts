@@ -198,7 +198,7 @@ export default class OtaClient {
      * @param file file from distribution
      * @param languageCode language code
      */
-    async getFileTranslations(file: string, languageCode?: string): Promise<Record<string, any> | null> {
+    async getFileTranslations(file: string, languageCode?: string): Promise<string | Record<string, any> | null> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
         const languageMappings = await this.getLanguageMappings();
@@ -212,7 +212,7 @@ export default class OtaClient {
         }
         const timestamp = await this.getManifestTimestamp();
         url += `?timestamp=${timestamp}`;
-        return this.httpClient.get<Record<string, any>>(url).catch(() => null);
+        return this.httpClient.get<string | Record<string, any>>(url).catch(() => null);
     }
 
     /**
