@@ -60,7 +60,7 @@ export interface Translations {
 
 export interface LanguageTranslations {
     file: string;
-    content: string | any;
+    content: string | Record<string, any> | null;
 }
 
 export interface LanguageStrings {
