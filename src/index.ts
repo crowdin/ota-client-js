@@ -183,13 +183,12 @@ export default class OtaClient {
     async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
         const language = this.getLanguageCode(languageCode);
         const files = await this.listFiles();
-        const languageTranslations = await Promise.all(
+        return Promise.all(
             files.map(async file => {
                 const content = await this.getFileTranslations(file, language);
                 return { content, file };
             }),
         );
-        return languageTranslations.filter(Boolean) as LanguageTranslations[];
     }
 
     /**
