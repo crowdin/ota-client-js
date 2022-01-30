@@ -1,5 +1,5 @@
 export function isJsonFile(file: string): boolean {
-    const extension = (file || '').split('.').pop();
+    const extension = (file ?? '').split('.').pop();
     return extension?.toLocaleLowerCase() === 'json';
 }
 
@@ -8,8 +8,8 @@ function isObject(value: any): boolean {
 }
 
 export function mergeDeep(targetObj: any, sourceObj: any): any {
-    const target = targetObj || {};
-    const source = sourceObj || {};
+    const target = targetObj ?? {};
+    const source = sourceObj ?? {};
     Object.keys(source).forEach(key => {
         if (isObject(source[key])) {
             if (!(key in target)) {

@@ -60,5 +60,8 @@
   "homepage": "https://github.com/crowdin/ota-client-js#readme",
   "directories": {
     "test": "tests"
+  },
+  "engines": {
+    "node": ">=12.9.0"
   }
 }
