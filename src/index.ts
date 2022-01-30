@@ -38,8 +38,9 @@ export interface Manifest {
     files: string[];
     languages: string[];
     timestamp: number;
-    language_mapping?: LanguageMappings;
-    custom_languages?: CustomLanguages;
+    // these next two arrays will always be empty if they are arrays, the never type just avoids an eslint error
+    language_mapping: LanguageMappings | never[];
+    custom_languages: CustomLanguages | never[];
 }
 
 export interface LanguageMappings {
@@ -150,15 +151,19 @@ export default class OtaClient {
     /**
      * Language mappings
      */
-    async getLanguageMappings(): Promise<LanguageMappings | undefined> {
-        return (await this.manifest).language_mapping;
+    async getLanguageMappings(): Promise<LanguageMappings | null> {
+        const languageMappings = (await this.manifest).language_mapping;
+        // languageMappings will be an empty array if there are none, or an object of the provided type otherwise
+        return Array.isArray(languageMappings) ? null : languageMappings;
     }
 
     /**
      * Custom languages
      */
-    async getCustomLanguages(): Promise<CustomLanguages | undefined> {
-        return (await this.manifest).custom_languages;
+    async getCustomLanguages(): Promise<CustomLanguages | null> {
+        const customLanguages = (await this.manifest).custom_languages;
+        // customLanguages will be an empty array if there are none, or an object of the provided type otherwise
+        return Array.isArray(customLanguages) ? null : customLanguages;
     }
 
     /**

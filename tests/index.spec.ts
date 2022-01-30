@@ -16,12 +16,14 @@ describe('OTA client', () => {
         files: [filePath],
         languages: [languageCode],
         timestamp: now,
-        /*eslint-disable-next-line @typescript-eslint/camelcase*/
+        /* eslint-disable @typescript-eslint/camelcase */
         language_mapping: {
             uk: {
                 locale: customLanguageLocale,
             },
         },
+        custom_languages: [],
+        /* eslint-enable @typescript-eslint/camelcase */
     };
     const jsonFilePath1 = '/folder/file1.json';
     const jsonFilePath2 = '/folder/file2.json';
@@ -39,6 +41,10 @@ describe('OTA client', () => {
         files: [jsonFilePath1, jsonFilePath2],
         languages: [languageCode],
         timestamp: now,
+        /* eslint-disable @typescript-eslint/camelcase */
+        language_mapping: [],
+        custom_languages: [],
+        /* eslint-enable @typescript-eslint/camelcase */
     };
 
     beforeAll(() => {
