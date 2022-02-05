@@ -1,6 +1,6 @@
 import { CustomLanguage, LanguageMapping } from '../..';
 
-interface Language {
+export interface Language {
     name: string;
     twoLettersCode: string;
     threeLettersCode: string;
@@ -13,7 +13,18 @@ interface Language {
 
 type Mapper<I, O> = (input: I) => O;
 
-const languagePlaceholders: { [placeholder: string]: Mapper<Language, string> } = {
+export type LanguagePlaceholders =
+    | '%language%'
+    | '%language%'
+    | '%two_letters_code%'
+    | '%three_letters_code%'
+    | '%locale%'
+    | '%locale_with_underscore%'
+    | '%android_code%'
+    | '%osx_code%'
+    | '%osx_locale%';
+
+export const languagePlaceholders: Record<LanguagePlaceholders, Mapper<Language, string>> = {
     '%language%': lang => lang.name,
     '%two_letters_code%': lang => lang.twoLettersCode,
     '%three_letters_code%': lang => lang.threeLettersCode,
@@ -2857,16 +2868,11 @@ export function includesLanguagePlaceholders(str: string): boolean {
     return Object.keys(languagePlaceholders).some(placeholder => str.includes(placeholder));
 }
 
-export function replaceLanguagePlaceholders(
-    str: string,
-    languageCode: string,
-    languageMapping?: LanguageMapping,
-    customLanguage?: CustomLanguage,
-): string {
+export function findLanguageObject(languageCode: string, customLanguage?: CustomLanguage): Language {
     let language: Language | undefined;
     if (customLanguage) {
         language = {
-            name: languageCode,
+            name: customLanguage.name,
             twoLettersCode: customLanguage.two_letters_code,
             threeLettersCode: customLanguage.three_letters_code,
             locale: customLanguage.locale,
@@ -2879,8 +2885,18 @@ export function replaceLanguagePlaceholders(
         language = languages.find(l => l.osxLocale === languageCode || l.locale === languageCode);
     }
     if (!language) {
-        throw new Error(`Unsupported language code : ${languageCode}`);
+        throw new Error(`Unsupported language code: ${languageCode}`);
     }
+    return language;
+}
+
+export function replaceLanguagePlaceholders(
+    str: string,
+    languageCode: string,
+    languageMapping?: LanguageMapping,
+    customLanguage?: CustomLanguage,
+): string {
+    const language = findLanguageObject(languageCode, customLanguage);
     let result = str;
     for (const placeholder of Object.keys(languagePlaceholders)) {
         if (result.includes(placeholder)) {
@@ -2888,7 +2904,7 @@ export function replaceLanguagePlaceholders(
             const replaceValue =
                 languageMapping && languageMapping[cleanPlaceholder]
                     ? languageMapping[cleanPlaceholder]
-                    : languagePlaceholders[placeholder](language);
+                    : languagePlaceholders[placeholder as LanguagePlaceholders](language);
             result = result.replace(placeholder, replaceValue);
         }
     }
