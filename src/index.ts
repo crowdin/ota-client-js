@@ -207,8 +207,8 @@ export default class OtaClient {
         const language = this.getLanguageCode(languageCode);
         const languageMappings = await this.getLanguageMappings();
         const customLanguages = await this.getCustomLanguages();
-        const languageMapping = (languageMappings || {})[language];
-        const customLanguage = (customLanguages || {})[language];
+        const languageMapping = (languageMappings ?? {})[language];
+        const customLanguage = (customLanguages ?? {})[language];
         if (includesLanguagePlaceholders(file)) {
             url += replaceLanguagePlaceholders(file, language, languageMapping, customLanguage);
         } else {
@@ -264,7 +264,7 @@ export default class OtaClient {
         }
         let res = strings[firstKey];
         for (const keyPart of path) {
-            res = res && res[keyPart];
+            res = res?.[keyPart];
         }
         return res;
     }
@@ -280,8 +280,9 @@ export default class OtaClient {
         let strings = {};
         for (const filePath of files) {
             let content;
-            if (!!(this.stringsCache[filePath] || {})[language]) {
-                content = await this.stringsCache[filePath][language];
+            const fileCache = await (this.stringsCache[filePath] ?? {})[language];
+            if (fileCache) {
+                content = fileCache;
             } else {
                 if (!this.disableStringsCache) {
                     this.stringsCache[filePath] = {

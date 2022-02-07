@@ -18,7 +18,7 @@ const languagePlaceholders: { [placeholder: string]: Mapper<Language, string> } 
     '%two_letters_code%': lang => lang.twoLettersCode,
     '%three_letters_code%': lang => lang.threeLettersCode,
     '%locale%': lang => lang.locale,
-    '%locale_with_underscore%': lang => lang.localeWithUnderscore || lang.locale.replace(/-/g, '_'),
+    '%locale_with_underscore%': lang => lang.localeWithUnderscore ?? lang.locale.replace(/-/g, '_'),
     '%android_code%': lang => lang.androidCode,
     '%osx_code%': lang => lang.osxCode,
     '%osx_locale%': lang => lang.osxLocale,
