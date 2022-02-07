@@ -150,6 +150,9 @@ Also there are several helper methods.
 | `getManifestTimestamp`       | Get manifest timestamp of distribution | |
 | `listFiles`                  | List of files in distribution | |
 | `listLanguages`              | List of project language codes | |
+| `getReplacedLanguages`       | List of project language codes in the provided format | `format` (placeholder format you want to replace your languages with, e.g. `locale`) |
+| `getReplacedFiles`           | List of files in distribution with variables replaced with the corresponding language code | |
+| `getLanguageObjects`         | List of project language objects | |
 | `clearStringsCache`          | Clear cache of translation strings | |
 | `getLanguageMappings`        | Get project language mapping | |
 | `getCustomLanguages`         | Get project custom languages | |
@@ -163,7 +166,7 @@ const hash = '{distribution_hash}';
 
 const client = new otaClient(hash);
 
-// will return all translation strings for all languages from all json files 
+// will return all translation strings for all languages from all json files
 client.getStrings()
   .then(res => {
     //get needed translation by language + key
@@ -224,8 +227,8 @@ If you've found an error in these samples, please [Contact Customer Success Serv
 
 ## License
 <pre>
-The Crowdin OTA JavaScript client is licensed under the MIT License. 
-See the LICENSE.md file distributed with this work for additional 
+The Crowdin OTA JavaScript client is licensed under the MIT License.
+See the LICENSE.md file distributed with this work for additional
 information regarding copyright ownership.
 
 Except as contained in the LICENSE file, the name(s) of the above copyright

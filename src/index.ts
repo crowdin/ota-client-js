@@ -202,6 +202,9 @@ export default class OtaClient {
         return result;
     }
 
+    /**
+     * List of project language objects
+     */
     async getLanguageObjects(): Promise<Language[]> {
         const languages = await this.listLanguages();
         const customLanguages = await this.getCustomLanguages();
