@@ -1,5 +1,12 @@
 import { AxiosHttpClient } from './internal/http/axiosClient';
-import { includesLanguagePlaceholders, replaceLanguagePlaceholders } from './internal/util/exportPattern';
+import {
+    findLanguageObject,
+    includesLanguagePlaceholders,
+    Language,
+    LanguagePlaceholders,
+    languagePlaceholders,
+    replaceLanguagePlaceholders,
+} from './internal/util/exportPattern';
 import { isJsonFile, mergeDeep } from './internal/util/strings';
 
 export interface ClientConfig {
@@ -64,11 +71,16 @@ export interface LanguageTranslations {
     content: string | any | null;
 }
 
+export interface LanguageFiles {
+    [languageCode: string]: string[];
+}
+
 export interface LanguageStrings {
     [languageCode: string]: any;
 }
 
 export interface CustomLanguage {
+    name: string;
     two_letters_code: string;
     three_letters_code: string;
     locale: string;
@@ -146,6 +158,57 @@ export default class OtaClient {
      */
     async listLanguages(): Promise<string[]> {
         return (await this.manifest).languages;
+    }
+
+    /**
+     * List of project language codes in the provided format
+     * @param format The placeholder format you want to replace your languages with
+     */
+    async getReplacedLanguages(format: LanguagePlaceholders): Promise<string[]> {
+        const [languages, customLanguages] = await Promise.all([
+            await this.listLanguages(),
+            await this.getCustomLanguages(),
+        ]);
+
+        return languages.map(l => languagePlaceholders[format](findLanguageObject(l, customLanguages?.[l])));
+    }
+
+    /**
+     * List of files in distribution with variables replaced with the corresponding language code
+     */
+    async getReplacedFiles(): Promise<LanguageFiles> {
+        const [customLanguages, languageMappings, files, languages] = await Promise.all([
+            await this.getCustomLanguages(),
+            await this.getLanguageMappings(),
+            await this.listFiles(),
+            await this.listLanguages(),
+        ]);
+
+        const result: Record<string, string[]> = {};
+        await Promise.all(
+            languages.map(async language => {
+                result[language] = await Promise.all(
+                    files.map(file =>
+                        replaceLanguagePlaceholders(
+                            file,
+                            language,
+                            languageMappings?.[language],
+                            customLanguages?.[language],
+                        ),
+                    ),
+                );
+            }),
+        );
+        return result;
+    }
+
+    /**
+     * List of project language objects
+     */
+    async getLanguageObjects(): Promise<Language[]> {
+        const languages = await this.listLanguages();
+        const customLanguages = await this.getCustomLanguages();
+        return Promise.all(languages.map(language => findLanguageObject(language, customLanguages?.[language])!));
     }
 
     /**

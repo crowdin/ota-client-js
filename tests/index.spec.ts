@@ -1,16 +1,31 @@
 import * as nock from 'nock';
 import OtaClient, { Manifest } from '../src/index';
+import { Language } from '../src/internal/util/exportPattern';
 
 describe('OTA client', () => {
     const now = Date.now();
     let scope: nock.Scope;
     const languageCode = 'uk';
+    const languageLocale = 'uk-UA';
+    const languageObject: Language = {
+        name: 'Ukrainian',
+        twoLettersCode: 'uk',
+        threeLettersCode: 'ukr',
+        locale: 'uk-UA',
+        androidCode: 'uk-rUA',
+        osxCode: 'uk.lproj',
+        osxLocale: 'uk',
+    };
     const hash = 'testHash';
     const hashForStrings = 'jsonTestHash';
-    const client: OtaClient = new OtaClient(hash);
-    const clientWithJsonFiles: OtaClient = new OtaClient(hashForStrings, { languageCode });
+    const hashForPlaceholders = 'jsonTestHashForPlaceholders';
+    const client = new OtaClient(hash);
+    const clientWithJsonFiles = new OtaClient(hashForStrings, { languageCode });
+    const clientWithPlaceholders = new OtaClient(hashForPlaceholders);
     const fileContent = '"apple","яблуко","","",""';
     const filePath = '/folder1/file1.csv';
+    const filePathWithPlaceholder = '/folder1/%locale%/file1.csv';
+    const filePathReplacedPlaceholder = '/folder1/uk-UA/file1.csv';
     const customLanguageLocale = 'ua';
     const manifest: Manifest = {
         files: [filePath],
@@ -22,7 +37,7 @@ describe('OTA client', () => {
                 locale: customLanguageLocale,
             },
         },
-        custom_languages: [],
+        custom_languages: [] as never[],
         /* eslint-enable @typescript-eslint/camelcase */
     };
     const jsonFilePath1 = '/folder/file1.json';
@@ -42,8 +57,17 @@ describe('OTA client', () => {
         languages: [languageCode],
         timestamp: now,
         /* eslint-disable @typescript-eslint/camelcase */
-        language_mapping: [],
-        custom_languages: [],
+        language_mapping: [] as never[],
+        custom_languages: [] as never[],
+        /* eslint-enable @typescript-eslint/camelcase */
+    };
+    const manifestWithPlaceholders: Manifest = {
+        files: [filePathWithPlaceholder],
+        languages: [languageCode],
+        timestamp: now,
+        /* eslint-disable @typescript-eslint/camelcase */
+        language_mapping: [] as never[],
+        custom_languages: [] as never[],
         /* eslint-enable @typescript-eslint/camelcase */
     };
 
@@ -59,7 +83,9 @@ describe('OTA client', () => {
             .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath1}?timestamp=${now}`)
             .reply(200, jsonFileContent1)
             .get(`/${hashForStrings}/content/${languageCode}${jsonFilePath2}?timestamp=${now}`)
-            .reply(200, jsonFileContent2);
+            .reply(200, jsonFileContent2)
+            .get(`/${hashForPlaceholders}/manifest.json`)
+            .reply(200, manifestWithPlaceholders);
     });
 
     afterAll(() => {
@@ -87,9 +113,27 @@ describe('OTA client', () => {
         expect(files).toEqual(manifest.files);
     });
 
+    it('should return an object with the language ids and an array of files with their formats correctly replaced', async () => {
+        const replacedFiles = await clientWithPlaceholders.getReplacedFiles();
+        expect(replacedFiles.uk.length).toEqual(manifest.files.length);
+        expect(replacedFiles.uk).toEqual([filePathReplacedPlaceholder]);
+    });
+
     it('should return list of languages from manifest', async () => {
         const languages = await client.listLanguages();
         expect(languages).toEqual(manifest.languages);
+    });
+
+    it('should return list of languages in the given format', async () => {
+        const languages = await clientWithPlaceholders.getReplacedLanguages('%locale%');
+        expect(languages.length).toEqual(manifest.languages.length);
+        expect(languages).toEqual([languageLocale]);
+    });
+
+    it('should return an array of language objects', async () => {
+        const languageObjects = await client.getLanguageObjects();
+        expect(languageObjects.length).toEqual(manifest.languages.length);
+        expect(languageObjects).toEqual([languageObject]);
     });
 
     it('should return language mappings', async () => {

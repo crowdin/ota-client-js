@@ -23,6 +23,7 @@ describe('Export Pattern Util', () => {
             locale: 'ua',
         };
         const customLanguage: CustomLanguage = {
+            name: 'Test Language',
             /*eslint-disable-next-line @typescript-eslint/camelcase*/
             two_letters_code: 'tl',
             /*eslint-disable-next-line @typescript-eslint/camelcase*/
