@@ -1,4 +1,4 @@
-import { CustomLanguageRaw, LanguageMapping } from '../..';
+import { APIData, CustomLanguageRaw, LanguageMapping } from '../..';
 
 export interface Language {
     id: string;
@@ -59,9 +59,10 @@ export function includesLanguagePlaceholders(str: string): boolean {
 
 export function findLanguageObject(
     languageCode: string,
-    languages: Language[],
+    apiLanguages: APIData,
     customLanguage?: CustomLanguageRaw,
 ): CustomLanguage {
+    const languages = apiLanguages.data.map(l => l.data);
     let language: CustomLanguage | undefined;
     if (customLanguage) {
         language = {
@@ -86,11 +87,11 @@ export function findLanguageObject(
 export function replaceLanguagePlaceholders(
     str: string,
     languageCode: string,
-    languages: Language[],
+    apiLanguages: APIData,
     languageMapping?: LanguageMapping,
     customLanguage?: CustomLanguageRaw,
 ): string {
-    const language = findLanguageObject(languageCode, languages, customLanguage);
+    const language = findLanguageObject(languageCode, apiLanguages, customLanguage);
     let result = str;
     for (const placeholder of Object.keys(languagePlaceholders)) {
         if (result.includes(placeholder)) {

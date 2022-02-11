@@ -111,7 +111,7 @@ export default class OtaClient {
     private stringsCache: { [file: string]: { [language: string]: Promise<any> } } = {};
     private disableStringsCache = false;
 
-    private languagesCache: Language[] | null = null;
+    private languagesCache: Promise<APIData> | null = null;
     private disableLanguagesCache = false;
     private enterpriseOrganization: string | null = null;
 
@@ -185,14 +185,14 @@ export default class OtaClient {
      * @param format The placeholder format you want to replace your languages with
      */
     async getReplacedLanguages(format: LanguagePlaceholders): Promise<string[]> {
-        const [projectLanguages, customLanguages, allLanguages] = await Promise.all([
+        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
             this.listLanguages(),
             this.getCustomLanguages(),
             this.getLanguages(),
         ]);
 
         return projectLanguages.map(l =>
-            languagePlaceholders[format](findLanguageObject(l, allLanguages, customLanguages?.[l])),
+            languagePlaceholders[format](findLanguageObject(l, apiLanguages, customLanguages?.[l])),
         );
     }
 
@@ -200,7 +200,7 @@ export default class OtaClient {
      * List of files in distribution with variables replaced with the corresponding language code
      */
     async getReplacedFiles(): Promise<LanguageFiles> {
-        const [customLanguages, languageMappings, files, projectLanguages, allLanguages] = await Promise.all([
+        const [customLanguages, languageMappings, files, projectLanguages, apiLanguages] = await Promise.all([
             this.getCustomLanguages(),
             this.getLanguageMappings(),
             this.listFiles(),
@@ -216,7 +216,7 @@ export default class OtaClient {
                         replaceLanguagePlaceholders(
                             file,
                             language,
-                            allLanguages,
+                            apiLanguages,
                             languageMappings?.[language],
                             customLanguages?.[language],
                         ),
@@ -231,14 +231,14 @@ export default class OtaClient {
      * List of project language objects
      */
     async getLanguageObjects(): Promise<(Language | CustomLanguage)[]> {
-        const [projectLanguages, customLanguages, allLanguages] = await Promise.all([
+        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
             this.listLanguages(),
             this.getCustomLanguages(),
             this.getLanguages(),
         ]);
 
         return Promise.all(
-            projectLanguages.map(language => findLanguageObject(language, allLanguages, customLanguages?.[language])!),
+            projectLanguages.map(language => findLanguageObject(language, apiLanguages, customLanguages?.[language])!),
         );
     }
 
@@ -299,7 +299,7 @@ export default class OtaClient {
     async getFileTranslations(file: string, languageCode?: string): Promise<string | any | null> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
-        const [languageMappings, customLanguages, languages] = await Promise.all([
+        const [languageMappings, customLanguages, apiLanguages] = await Promise.all([
             this.getLanguageMappings(),
             this.getCustomLanguages(),
             this.getLanguages(),
@@ -307,7 +307,7 @@ export default class OtaClient {
         const languageMapping = (languageMappings ?? {})[language];
         const customLanguage = (customLanguages ?? {})[language];
         if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, language, languages, languageMapping, customLanguage);
+            url += replaceLanguagePlaceholders(file, language, apiLanguages, languageMapping, customLanguage);
         } else {
             url += `/${language}${file}`;
         }
@@ -422,11 +422,11 @@ export default class OtaClient {
         return (await this.listFiles()).filter(f => !file || file === f).filter(isJsonFile);
     }
 
-    private async getLanguages(): Promise<Language[]> {
+    private getLanguages(): Promise<APIData> {
         if (this.languagesCache) {
             return this.languagesCache;
         }
-        const languages = (await this.httpClient.get<APIData>(this.apiURL)).data.map(l => l.data);
+        const languages = this.httpClient.get<APIData>(this.apiURL);
         if (!this.disableLanguagesCache) {
             this.languagesCache = languages;
         }
@@ -434,7 +434,7 @@ export default class OtaClient {
     }
 }
 
-interface APIData {
+export interface APIData {
     data: {
         data: Language;
     }[];
