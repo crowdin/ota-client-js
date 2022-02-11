@@ -39,7 +39,7 @@ export interface ClientConfig {
      * The name of your Crowdin Enterprise organization
      * If provided, this will fetch languages from the Enterprise API instead of the Crowdin API v2. The name must be a valid Enterprise organization name.
      */
-    enterpriseOrganization?: string;
+    enterpriseOrganizationDomain?: string;
 }
 
 export interface HttpClient {
@@ -113,13 +113,13 @@ export default class OtaClient {
 
     private languagesCache: Promise<APIData> | null = null;
     private disableLanguagesCache = false;
-    private enterpriseOrganization: string | null = null;
+    private enterpriseOrganizationDomain: string | null = null;
 
     private disableJsonDeepMerge = false;
     private locale?: string;
 
     public readonly apiURL = `https://${
-        this.enterpriseOrganization ? `${this.enterpriseOrganization}.` : ''
+        this.enterpriseOrganizationDomain ? `${this.enterpriseOrganizationDomain}.` : ''
     }api.crowdin.com/api/v2/languages?limit=500`;
 
     /**
@@ -133,7 +133,7 @@ export default class OtaClient {
         this.disableStringsCache = !!config?.disableStringsCache;
         this.disableJsonDeepMerge = !!config?.disableJsonDeepMerge;
         this.disableLanguagesCache = !!config?.disableLanguagesCache;
-        this.enterpriseOrganization = config?.enterpriseOrganization ?? null;
+        this.enterpriseOrganizationDomain = config?.enterpriseOrganizationDomain ?? null;
     }
 
     /**
