@@ -1,5 +1,6 @@
 import { AxiosHttpClient } from './internal/http/axiosClient';
 import {
+    CustomLanguage,
     findLanguageObject,
     includesLanguagePlaceholders,
     Language,
@@ -27,9 +28,18 @@ export interface ClientConfig {
      */
     disableStringsCache?: boolean;
     /**
+     * Disable Crowdin languages cache. Default is false
+     */
+    disableLanguagesCache?: boolean;
+    /**
      * Disable deep merge and use shallow merge to merge translation strings from json file
      */
     disableJsonDeepMerge?: boolean;
+    /**
+     * The name of your Crowdin Enterprise organization
+     * If provided, this will fetch languages from the Enterprise API instead of the Crowdin API v2. The name must be a valid Enterprise organization name.
+     */
+    enterpriseOrganizationDomain?: string;
 }
 
 export interface HttpClient {
@@ -55,7 +65,7 @@ export interface LanguageMappings {
 }
 
 export interface CustomLanguages {
-    [languageCode: string]: CustomLanguage;
+    [languageCode: string]: CustomLanguageRaw;
 }
 
 export interface LanguageMapping {
@@ -79,7 +89,7 @@ export interface LanguageStrings {
     [languageCode: string]: any;
 }
 
-export interface CustomLanguage {
+export interface CustomLanguageRaw {
     name: string;
     two_letters_code: string;
     three_letters_code: string;
@@ -101,8 +111,16 @@ export default class OtaClient {
     private stringsCache: { [file: string]: { [language: string]: Promise<any> } } = {};
     private disableStringsCache = false;
 
+    private languagesCache: Promise<APIData> | null = null;
+    private disableLanguagesCache = false;
+    private enterpriseOrganizationDomain: string | null = null;
+
     private disableJsonDeepMerge = false;
     private locale?: string;
+
+    public readonly apiURL = `https://${
+        this.enterpriseOrganizationDomain ? `${this.enterpriseOrganizationDomain}.` : ''
+    }api.crowdin.com/api/v2/languages?limit=500`;
 
     /**
      * @param distributionHash hash of released Crowdin project distribution
@@ -114,6 +132,8 @@ export default class OtaClient {
         this.locale = config?.languageCode;
         this.disableStringsCache = !!config?.disableStringsCache;
         this.disableJsonDeepMerge = !!config?.disableJsonDeepMerge;
+        this.disableLanguagesCache = !!config?.disableLanguagesCache;
+        this.enterpriseOrganizationDomain = config?.enterpriseOrganizationDomain ?? null;
     }
 
     /**
@@ -165,33 +185,38 @@ export default class OtaClient {
      * @param format The placeholder format you want to replace your languages with
      */
     async getReplacedLanguages(format: LanguagePlaceholders): Promise<string[]> {
-        const [languages, customLanguages] = await Promise.all([
-            await this.listLanguages(),
-            await this.getCustomLanguages(),
+        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
+            this.listLanguages(),
+            this.getCustomLanguages(),
+            this.getLanguages(),
         ]);
 
-        return languages.map(l => languagePlaceholders[format](findLanguageObject(l, customLanguages?.[l])));
+        return projectLanguages.map(l =>
+            languagePlaceholders[format](findLanguageObject(l, apiLanguages, customLanguages?.[l])),
+        );
     }
 
     /**
      * List of files in distribution with variables replaced with the corresponding language code
      */
     async getReplacedFiles(): Promise<LanguageFiles> {
-        const [customLanguages, languageMappings, files, languages] = await Promise.all([
-            await this.getCustomLanguages(),
-            await this.getLanguageMappings(),
-            await this.listFiles(),
-            await this.listLanguages(),
+        const [customLanguages, languageMappings, files, projectLanguages, apiLanguages] = await Promise.all([
+            this.getCustomLanguages(),
+            this.getLanguageMappings(),
+            this.listFiles(),
+            this.listLanguages(),
+            this.getLanguages(),
         ]);
 
         const result: Record<string, string[]> = {};
         await Promise.all(
-            languages.map(async language => {
+            projectLanguages.map(async language => {
                 result[language] = await Promise.all(
                     files.map(file =>
                         replaceLanguagePlaceholders(
                             file,
                             language,
+                            apiLanguages,
                             languageMappings?.[language],
                             customLanguages?.[language],
                         ),
@@ -205,10 +230,16 @@ export default class OtaClient {
     /**
      * List of project language objects
      */
-    async getLanguageObjects(): Promise<Language[]> {
-        const languages = await this.listLanguages();
-        const customLanguages = await this.getCustomLanguages();
-        return Promise.all(languages.map(language => findLanguageObject(language, customLanguages?.[language])!));
+    async getLanguageObjects(): Promise<(Language | CustomLanguage)[]> {
+        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
+            this.listLanguages(),
+            this.getCustomLanguages(),
+            this.getLanguages(),
+        ]);
+
+        return Promise.all(
+            projectLanguages.map(language => findLanguageObject(language, apiLanguages, customLanguages?.[language])!),
+        );
     }
 
     /**
@@ -268,12 +299,15 @@ export default class OtaClient {
     async getFileTranslations(file: string, languageCode?: string): Promise<string | any | null> {
         let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
         const language = this.getLanguageCode(languageCode);
-        const languageMappings = await this.getLanguageMappings();
-        const customLanguages = await this.getCustomLanguages();
+        const [languageMappings, customLanguages, apiLanguages] = await Promise.all([
+            this.getLanguageMappings(),
+            this.getCustomLanguages(),
+            this.getLanguages(),
+        ]);
         const languageMapping = (languageMappings ?? {})[language];
         const customLanguage = (customLanguages ?? {})[language];
         if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, language, languageMapping, customLanguage);
+            url += replaceLanguagePlaceholders(file, language, apiLanguages, languageMapping, customLanguage);
         } else {
             url += `/${language}${file}`;
         }
@@ -387,4 +421,21 @@ export default class OtaClient {
     private async getJsonFiles(file?: string): Promise<string[]> {
         return (await this.listFiles()).filter(f => !file || file === f).filter(isJsonFile);
     }
+
+    private getLanguages(): Promise<APIData> {
+        if (this.languagesCache) {
+            return this.languagesCache;
+        }
+        const languages = this.httpClient.get<APIData>(this.apiURL);
+        if (!this.disableLanguagesCache) {
+            this.languagesCache = languages;
+        }
+        return languages;
+    }
+}
+
+export interface APIData {
+    data: {
+        data: Language;
+    }[];
 }

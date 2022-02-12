@@ -8,13 +8,26 @@ describe('OTA client', () => {
     const languageCode = 'uk';
     const languageLocale = 'uk-UA';
     const languageObject: Language = {
+        id: 'uk',
         name: 'Ukrainian',
+        editorCode: 'uk',
         twoLettersCode: 'uk',
         threeLettersCode: 'ukr',
         locale: 'uk-UA',
         androidCode: 'uk-rUA',
         osxCode: 'uk.lproj',
         osxLocale: 'uk',
+        pluralCategoryNames: ['one', 'few', 'many', 'other'],
+        pluralRules:
+            '((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3))',
+        pluralExamples: [
+            '1, 21, 31, 41, 51, 61, 71, 81...',
+            '2-4, 22-24, 32-34, 42-44, 52-54, 62...',
+            '0, 5-19, 100, 1000, 10000...',
+            '0.0-0.9, 1.1-1.6, 10.0, 100.0...',
+        ],
+        textDirection: 'ltr',
+        dialectOf: null,
     };
     const hash = 'testHash';
     const hashForStrings = 'jsonTestHash';

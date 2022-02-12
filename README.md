@@ -199,7 +199,9 @@ In constructor as a second (optional) argument you can pass configuration object
 | `disableManifestCache`     | Disable caching of manifest file which will lead to additional request for each client method  |`true` |
 | `languageCode`             | Default language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method) |`uk` |
 | `disableStringsCache`      | Disable caching of translation strings which is used for JSON-based client methods |`true` |
+| `disableLanguagesCache` | Disable caching of Crowdin's language list | `true` |
 | `disableJsonDeepMerge`     | Disable deep merge of json-based files for string-based methods and use shallow merge |`true` |
+| `enterpriseOrganizationDomain` | The domain of your Crowdin enterprise organization. If provided, the client will use the Crowdin Enterprise API endpoint to fetch languages, as opposed to the regular API v2 when missing. | `organization_domain` |
 
 ```typescript
 import otaClient, { ClientConfig } from'@crowdin/ota-client';
