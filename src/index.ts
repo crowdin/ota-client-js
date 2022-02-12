@@ -111,7 +111,7 @@ export default class OtaClient {
     private stringsCache: { [file: string]: { [language: string]: Promise<any> } } = {};
     private disableStringsCache = false;
 
-    private languagesCache: Promise<APIData> | null = null;
+    private languagesCache: Promise<Language[]> | null = null;
     private disableLanguagesCache = false;
     private enterpriseOrganizationDomain: string | null = null;
 
@@ -422,11 +422,11 @@ export default class OtaClient {
         return (await this.listFiles()).filter(f => !file || file === f).filter(isJsonFile);
     }
 
-    private getLanguages(): Promise<APIData> {
+    private getLanguages(): Promise<Language[]> {
         if (this.languagesCache) {
             return this.languagesCache;
         }
-        const languages = this.httpClient.get<APIData>(this.apiURL);
+        const languages = this.httpClient.get<LanguagesData>(this.apiURL).then(d => d.data.map(l => l.data));
         if (!this.disableLanguagesCache) {
             this.languagesCache = languages;
         }
@@ -434,7 +434,7 @@ export default class OtaClient {
     }
 }
 
-export interface APIData {
+interface LanguagesData {
     data: {
         data: Language;
     }[];
