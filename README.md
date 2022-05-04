@@ -16,6 +16,18 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 [![GitHub issues](https://img.shields.io/github/issues/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/issues)
 [![License](https://img.shields.io/github/license/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/blob/main/LICENSE)
 
+## Works with
+
+![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&cacheSeconds=10000&labelColor=grey&style=flat)
+![TypeScript](https://img.shields.io/badge/-TypeScript-2f74c0?logo=typescript&cacheSeconds=10000&labelColor=grey&style=flat)
+![Nodejs](https://img.shields.io/badge/-Nodejs-88c24a?logo=Node.js&cacheSeconds=10000&labelColor=grey&style=flat)
+![i18next](https://img.shields.io/badge/-i18next-119184?logo=i18next&cacheSeconds=10000&labelColor=grey&style=flat)
+![React](https://img.shields.io/badge/-React-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat)
+![React Native](https://img.shields.io/badge/-ReactNative-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat)
+![VueJS](https://img.shields.io/badge/-VueJS-1bb77e?logo=Vue.js&cacheSeconds=10000&labelColor=grey&style=flat)
+![AngularJS](https://img.shields.io/badge/-AngularJS-d6082f?logo=angularjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![EmberJS](https://img.shields.io/badge/-EmberJS-db492f?logo=emberdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
+
 ## Build Status
 
 | Azure CI (Linux) | Azure CI (Windows) | Azure CI (MacOS) |
