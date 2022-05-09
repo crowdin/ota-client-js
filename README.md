@@ -27,6 +27,7 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 ![VueJS](https://img.shields.io/badge/-VueJS-1bb77e?logo=Vue.js&cacheSeconds=10000&labelColor=grey&style=flat)
 ![AngularJS](https://img.shields.io/badge/-AngularJS-d6082f?logo=angularjs&cacheSeconds=10000&labelColor=grey&style=flat)
 ![EmberJS](https://img.shields.io/badge/-EmberJS-db492f?logo=emberdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![NextJS](https://img.shields.io/badge/-NextJS-cfd7da?logo=nextdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
 
 ## Build Status
 
