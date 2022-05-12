@@ -7,6 +7,7 @@ Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to d
 Information about Crowdin OTA can be found in the [Knowledge Base article](https://support.crowdin.com/content-delivery/). Also, visit the [Wiki](https://github.com/crowdin/ota-client-js/wiki) to read more about the advanced usage of OTA Client.
 
 [<p align='center'>:rocket: View live demo :rocket:</p>](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo)
+[<p align='center'>:green_book: OTA JS Client docs :green_book:</p>](https://crowdin.github.io/ota-client-js/classes/default.html)
 
 ## Status
 
