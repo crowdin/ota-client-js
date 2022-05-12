@@ -12,7 +12,7 @@ import { isJsonFile, mergeDeep } from './internal/util/strings';
 
 export interface ClientConfig {
     /**
-     * Specify your own http client. Defult uses axios
+     * Specify your own http client. Default uses axios
      */
     httpClient?: HttpClient;
     /**
@@ -100,7 +100,11 @@ export interface CustomLanguageRaw {
     osx_locale: string;
 }
 
+/**
+ * @category OtaClient
+ */
 export default class OtaClient {
+    /** @internal */
     public static readonly BASE_URL = 'https://distributions.crowdin.net';
 
     private readonly httpClient: HttpClient;
@@ -118,6 +122,7 @@ export default class OtaClient {
     private disableJsonDeepMerge = false;
     private locale?: string;
 
+    /** @internal */
     public readonly apiURL = `https://${
         this.enterpriseOrganizationDomain ? `${this.enterpriseOrganizationDomain}.` : ''
     }api.crowdin.com/api/v2/languages?limit=500`;
