@@ -1,0 +1,310 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@crowdin/ota-client</title><meta name="description" content="Documentation for @crowdin/ota-client"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><link rel="stylesheet" href="assets/custom.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@crowdin/ota-client</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>@crowdin/ota-client </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"><p><a href="https://crowdin.com"><p align='center'><img src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' data-canonical-src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' width='200' height='200' align='center'/></p></a></p>
+
+<a href="#crowdin-ota-javascript-client-" id="crowdin-ota-javascript-client-" style="color: inherit; text-decoration: none;">
+  <h1>Crowdin OTA JavaScript client <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fcrowdin%2Fota-client-js&amp;text=Lightweight%20library%20for%20Crowdin%20Over-The-Air%20Content%20Delivery.%20The%20best%20way%20to%20deliver%20translations%20to%20your%20site%20Over-The-Air"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></h1>
+</a>
+<p>Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to deliver translations to your site Over-The-Air :dizzy:</p>
+<p>Information about Crowdin OTA can be found in the <a href="https://support.crowdin.com/content-delivery/">Knowledge Base article</a>. Also, visit the <a href="https://github.com/crowdin/ota-client-js/wiki">Wiki</a> to read more about the advanced usage of OTA Client.</p>
+<p><a href="https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo"><p align='center'>:rocket: View live demo :rocket:</p></a></p>
+
+<a href="#status" id="status" style="color: inherit; text-decoration: none;">
+  <h2>Status</h2>
+</a>
+<p><a href="https://www.npmjs.com/package/@crowdin/ota-client"><img src="https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800" alt="npm"></a>
+<a href="https://www.npmjs.com/package/@crowdin/ota-client"><img src="https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800" alt="npm"></a>
+<a href="https://codecov.io/gh/crowdin/ota-client-js"><img src="https://codecov.io/gh/crowdin/ota-client-js/branch/main/graph/badge.svg" alt="codecov"></a>
+<a href="https://github.com/crowdin/ota-client-js/issues"><img src="https://img.shields.io/github/issues/crowdin/ota-client-js?cacheSeconds=3600" alt="GitHub issues"></a>
+<a href="https://github.com/crowdin/ota-client-js/blob/main/LICENSE"><img src="https://img.shields.io/github/license/crowdin/ota-client-js?cacheSeconds=3600" alt="License"></a></p>
+
+<a href="#works-with" id="works-with" style="color: inherit; text-decoration: none;">
+  <h2>Works with</h2>
+</a>
+<p><img src="https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&cacheSeconds=10000&labelColor=grey&style=flat" alt="JavaScript">
+<img src="https://img.shields.io/badge/-TypeScript-2f74c0?logo=typescript&cacheSeconds=10000&labelColor=grey&style=flat" alt="TypeScript">
+<img src="https://img.shields.io/badge/-Nodejs-88c24a?logo=Node.js&cacheSeconds=10000&labelColor=grey&style=flat" alt="Nodejs">
+<img src="https://img.shields.io/badge/-i18next-119184?logo=i18next&cacheSeconds=10000&labelColor=grey&style=flat" alt="i18next">
+<img src="https://img.shields.io/badge/-React-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat" alt="React">
+<img src="https://img.shields.io/badge/-ReactNative-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat" alt="React Native">
+<img src="https://img.shields.io/badge/-VueJS-1bb77e?logo=Vue.js&cacheSeconds=10000&labelColor=grey&style=flat" alt="VueJS">
+<img src="https://img.shields.io/badge/-AngularJS-d6082f?logo=angularjs&cacheSeconds=10000&labelColor=grey&style=flat" alt="AngularJS">
+<img src="https://img.shields.io/badge/-EmberJS-db492f?logo=emberdotjs&cacheSeconds=10000&labelColor=grey&style=flat" alt="EmberJS">
+<img src="https://img.shields.io/badge/-NextJS-cfd7da?logo=nextdotjs&cacheSeconds=10000&labelColor=grey&style=flat" alt="NextJS"></p>
+
+<a href="#build-status" id="build-status" style="color: inherit; text-decoration: none;">
+  <h2>Build Status</h2>
+</a>
+<table>
+<thead>
+<tr>
+<th>Azure CI (Linux)</th>
+<th>Azure CI (Windows)</th>
+<th>Azure CI (MacOS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&amp;branchName=main"><img src="https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Ubuntu?branchName=main" alt="Build Status"></a></td>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&amp;branchName=main"><img src="https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Windows?branchName=main" alt="Build Status"></a></td>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&amp;branchName=main"><img src="https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/MacOS?branchName=main" alt="Build Status"></a></td>
+</tr>
+<tr>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&amp;branchName=main"><img src="https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/29/main?cacheSeconds=1800" alt="Azure DevOps tests (branch)"></a></td>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&amp;branchName=main"><img src="https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/31/main?cacheSeconds=1800" alt="Azure DevOps tests (branch)"></a></td>
+<td><a href="https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&amp;branchName=main"><img src="https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/30/main?cacheSeconds=1800" alt="Azure DevOps tests (branch)"></a></td>
+</tr>
+</tbody></table>
+
+<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+  <h2>Table of Contents</h2>
+</a>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#seeking-assistance">Seeking Assistance</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+
+<a href="#npm" id="npm" style="color: inherit; text-decoration: none;">
+  <h3>npm</h3>
+</a>
+<p>  <code>npm i @crowdin/ota-client</code></p>
+
+<a href="#yarn" id="yarn" style="color: inherit; text-decoration: none;">
+  <h3>yarn</h3>
+</a>
+<p>  <code>yarn add @crowdin/ota-client</code></p>
+
+<a href="#quick-start" id="quick-start" style="color: inherit; text-decoration: none;">
+  <h2>Quick Start</h2>
+</a>
+<details>
+<summary>Typescript</summary>
+
+<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">otaClient</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;@crowdin/ota-client&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// distribution hash</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hash</span><span class="hl-1"> = </span><span class="hl-3">&#39;{distribution_hash}&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// initialization of crowdin ota client</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">otaClient</span><span class="hl-1">(</span><span class="hl-2">hash</span><span class="hl-1">);</span><br/><br/><span class="hl-4">// get list of files in distribution</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">listFiles</span><span class="hl-1">()</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/><br/><span class="hl-4">// one of target languages in Crowdin project (could be retrieved via client.listLanguages)</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">languageCode</span><span class="hl-1"> = </span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// one of files from client.listFiles</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">file</span><span class="hl-1"> = </span><span class="hl-3">&#39;file&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// get file translations</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getFileTranslations</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">, </span><span class="hl-2">languageCode</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span>
+</code></pre>
+</details>
+
+<details>
+<summary>Javascript ES6 modules</summary>
+
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">otaClient</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;@crowdin/ota-client&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// or const otaClient = require(&#39;./out/index.js&#39;).default;</span><br/><br/><span class="hl-4">// distribution hash</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hash</span><span class="hl-1"> = </span><span class="hl-3">&#39;{distribution_hash}&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// initialization of crowdin ota client</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">otaClient</span><span class="hl-1">(</span><span class="hl-2">hash</span><span class="hl-1">);</span><br/><br/><span class="hl-4">// get list of files in distribution</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">listFiles</span><span class="hl-1">()</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/><br/><span class="hl-4">// one of target languages in Crowdin project (could be retrieved via client.listLanguages)</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">languageCode</span><span class="hl-1"> = </span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// one of files from client.listFiles</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">file</span><span class="hl-1"> = </span><span class="hl-3">&#39;file&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// get file translations</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getFileTranslations</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">, </span><span class="hl-2">languageCode</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span>
+</code></pre>
+</details>
+
+<details>
+<summary>Javascript CommonJS</summary>
+
+<pre><code class="language-javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">otaClient</span><span class="hl-1"> = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&#39;@crowdin/ota-client&#39;</span><span class="hl-1">).</span><span class="hl-2">default</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// distribution hash</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hash</span><span class="hl-1"> = </span><span class="hl-3">&#39;{distribution_hash}&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// initialization of crowdin ota client</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">otaClient</span><span class="hl-1">(</span><span class="hl-2">hash</span><span class="hl-1">);</span><br/><br/><span class="hl-4">// get list of files in distribution</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">listFiles</span><span class="hl-1">()</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/><br/><span class="hl-4">// one of target languages in Crowdin project (could be retrieved via client.listLanguages)</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">languageCode</span><span class="hl-1"> = </span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// one of files from client.listFiles</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">file</span><span class="hl-1"> = </span><span class="hl-3">&#39;file&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">// get file translations</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getFileTranslations</span><span class="hl-1">(</span><span class="hl-2">file</span><span class="hl-1">, </span><span class="hl-2">languageCode</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span>
+</code></pre>
+</details>
+
+<p>You can create a new distribution in your Crowdin project settings (<em>Content Delivery</em> tab) or using Distributions API through <a href="https://support.crowdin.com/api/v2/">REST API</a>. After that you will receive a <em>Distribution hash</em>.</p>
+
+<a href="#client-methods" id="client-methods" style="color: inherit; text-decoration: none;">
+  <h3>Client methods</h3>
+</a>
+<p>Client contains methods to retrieve translation strings from files as a plain text and from JSON files as an objects.
+Also there are several helper methods.</p>
+<table>
+<thead>
+<tr>
+<th>Method name</th>
+<th>Description</th>
+<th>Input arguments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Methods for plain text</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>getTranslations</code></td>
+<td>Returns translations for all languages</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getLanguageTranslations</code></td>
+<td>Returns translations for specific language</td>
+<td><code>languageCode</code> (optional, otherwise use <code>setCurrentLocale</code>)</td>
+</tr>
+<tr>
+<td><code>getFileTranslations</code></td>
+<td>Returns translations for specific language and file</td>
+<td><code>file</code> (e.g. one from <code>listFiles</code>), <code>languageCode</code> (optional, otherwise use <code>setCurrentLocale</code>)</td>
+</tr>
+<tr>
+<td>Methods for JSON-based files</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>getStrings</code></td>
+<td>Returns translations for all languages</td>
+<td><code>file</code> (optional, e.g. json file from <code>listFiles</code>)</td>
+</tr>
+<tr>
+<td><code>getStringsByLocale</code></td>
+<td>Returns translations for specific language</td>
+<td><code>file</code> (optional, e.g. json file from <code>listFiles</code>), <code>languageCode</code> (optional, otherwise use <code>setCurrentLocale</code>)</td>
+</tr>
+<tr>
+<td><code>getStringByKey</code></td>
+<td>Returns translation for language for specific key</td>
+<td><code>key</code>, <code>file</code> (optional, e.g. json file from <code>listFiles</code>), <code>languageCode</code> (optional, otherwise use <code>setCurrentLocale</code>)</td>
+</tr>
+<tr>
+<td>Helper methods</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>getHash</code></td>
+<td>Returns distribution hash</td>
+<td></td>
+</tr>
+<tr>
+<td><code>setCurrentLocale</code></td>
+<td>Define global language for client instance</td>
+<td><code>languageCode</code></td>
+</tr>
+<tr>
+<td><code>getCurrentLocale</code></td>
+<td>Get global language for client instance</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getManifestTimestamp</code></td>
+<td>Get manifest timestamp of distribution</td>
+<td></td>
+</tr>
+<tr>
+<td><code>listFiles</code></td>
+<td>List of files in distribution</td>
+<td></td>
+</tr>
+<tr>
+<td><code>listLanguages</code></td>
+<td>List of project language codes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getReplacedLanguages</code></td>
+<td>List of project language codes in the provided format</td>
+<td><code>format</code> (placeholder format you want to replace your languages with, e.g. <code>locale</code>)</td>
+</tr>
+<tr>
+<td><code>getReplacedFiles</code></td>
+<td>List of files in distribution with variables replaced with the corresponding language code</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getLanguageObjects</code></td>
+<td>List of project language objects</td>
+<td></td>
+</tr>
+<tr>
+<td><code>clearStringsCache</code></td>
+<td>Clear cache of translation strings</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getLanguageMappings</code></td>
+<td>Get project language mapping</td>
+<td></td>
+</tr>
+<tr>
+<td><code>getCustomLanguages</code></td>
+<td>Get project custom languages</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>Example of loading strings from JSON files</p>
+<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">otaClient</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-3">&#39;@crowdin/ota-client&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hash</span><span class="hl-1"> = </span><span class="hl-3">&#39;{distribution_hash}&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">otaClient</span><span class="hl-1">(</span><span class="hl-2">hash</span><span class="hl-1">);</span><br/><br/><span class="hl-4">// will return all translation strings for all languages from all json files</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getStrings</span><span class="hl-1">()</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">//get needed translation by language + key</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1">.</span><span class="hl-2">uk</span><span class="hl-1">.</span><span class="hl-2">application</span><span class="hl-1">.</span><span class="hl-2">title</span><span class="hl-1">);</span><br/><span class="hl-1">  })</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/><br/><span class="hl-4">// or get concrete translation by key</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getStringByKey</span><span class="hl-1">([</span><span class="hl-3">&#39;application&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;title&#39;</span><span class="hl-1">], </span><span class="hl-3">&#39;/folder/file.json&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">title</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">title</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/><br/><span class="hl-4">// or define global language and do not pass it everywhere</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">setCurrentLocale</span><span class="hl-1">(</span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">);</span><br/><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-7">getStringByKey</span><span class="hl-1">([</span><span class="hl-3">&#39;application&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;title&#39;</span><span class="hl-1">], </span><span class="hl-3">&#39;/folder/file.json&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-7">then</span><span class="hl-1">(</span><span class="hl-2">title</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-2">title</span><span class="hl-1">))</span><br/><span class="hl-1">  .</span><span class="hl-7">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">error</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">));</span><br/>
+</code></pre>
+
+<a href="#client-configuration" id="client-configuration" style="color: inherit; text-decoration: none;">
+  <h3>Client configuration</h3>
+</a>
+<p>You also can customize client for your needs.
+In constructor as a second (optional) argument you can pass configuration object.</p>
+<table>
+<thead>
+<tr>
+<th>Config option</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>hash</code></td>
+<td>Distribution Hash</td>
+<td><code>7a0c1ee2622bc85a4030297uo3b</code></td>
+</tr>
+<tr>
+<td><code>httpClient</code></td>
+<td>Custom HTTP client</td>
+<td><a href="https://github.com/crowdin/ota-client-js/blob/main/src/internal/http/axiosClient.ts">Axios (default)</a></td>
+</tr>
+<tr>
+<td><code>disableManifestCache</code></td>
+<td>Disable caching of manifest file which will lead to additional request for each client method</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>languageCode</code></td>
+<td>Default language code to be used if language was not passed as an input argument of the method (also possible via <code>setCurrentLocale</code> method)</td>
+<td><code>uk</code></td>
+</tr>
+<tr>
+<td><code>disableStringsCache</code></td>
+<td>Disable caching of translation strings which is used for JSON-based client methods</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>disableLanguagesCache</code></td>
+<td>Disable caching of Crowdin&#39;s language list</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>disableJsonDeepMerge</code></td>
+<td>Disable deep merge of json-based files for string-based methods and use shallow merge</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>enterpriseOrganizationDomain</code></td>
+<td>The domain of your Crowdin enterprise organization. If provided, the client will use the Crowdin Enterprise API endpoint to fetch languages, as opposed to the regular API v2 when missing.</td>
+<td><code>organization_domain</code></td>
+</tr>
+</tbody></table>
+<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">otaClient</span><span class="hl-1">, { </span><span class="hl-2">ClientConfig</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-3">&#39;@crowdin/ota-client&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">config</span><span class="hl-1">: </span><span class="hl-8">ClientConfig</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-2">httpClient:</span><span class="hl-1"> </span><span class="hl-2">customHttpClient</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">disableManifestCache:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">languageCode:</span><span class="hl-1"> </span><span class="hl-3">&#39;uk&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">disableStringsCache:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">disableJsonDeepMerge:</span><span class="hl-1"> </span><span class="hl-5">true</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hash</span><span class="hl-1"> = </span><span class="hl-3">&#39;7a0c1ee2622bc85a4030297uo3b&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">otaClient</span><span class="hl-1">(</span><span class="hl-2">hash</span><span class="hl-1">, </span><span class="hl-2">config</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+  <h2>Contributing</h2>
+</a>
+<p>If you want to contribute please read the <a href="/CONTRIBUTING.md">Contributing</a> guidelines.</p>
+
+<a href="#seeking-assistance" id="seeking-assistance" style="color: inherit; text-decoration: none;">
+  <h2>Seeking Assistance</h2>
+</a>
+<p>If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at <a href="https://github.com/crowdin/ota-client-js/issues">Issues Page</a>.</p>
+<p>If you&#39;ve found an error in these samples, please <a href="https://crowdin.com/contacts">Contact Customer Success Service</a>.</p>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<pre>
+The Crowdin OTA JavaScript client is licensed under the MIT License.
+See the LICENSE.md file distributed with this work for additional
+information regarding copyright ownership.
+
+Except as contained in the LICENSE file, the name(s) of the above copyright
+holders shall not be used in advertising or otherwise to promote the sale,
+use or other dealings in this Software without prior written authorization.
+</pre>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/default.html" class="tsd-kind-icon">default</a></li><li class="tsd-kind-interface"><a href="interfaces/ClientConfig.html" class="tsd-kind-icon">Client<wbr/>Config</a></li><li class="tsd-kind-interface"><a href="interfaces/CustomLanguageRaw.html" class="tsd-kind-icon">Custom<wbr/>Language<wbr/>Raw</a></li><li class="tsd-kind-interface"><a href="interfaces/CustomLanguages.html" class="tsd-kind-icon">Custom<wbr/>Languages</a></li><li class="tsd-kind-interface"><a href="interfaces/HttpClient.html" class="tsd-kind-icon">Http<wbr/>Client</a></li><li class="tsd-kind-interface"><a href="interfaces/LanguageFiles.html" class="tsd-kind-icon">Language<wbr/>Files</a></li><li class="tsd-kind-interface"><a href="interfaces/LanguageMapping.html" class="tsd-kind-icon">Language<wbr/>Mapping</a></li><li class="tsd-kind-interface"><a href="interfaces/LanguageMappings.html" class="tsd-kind-icon">Language<wbr/>Mappings</a></li><li class="tsd-kind-interface"><a href="interfaces/LanguageStrings.html" class="tsd-kind-icon">Language<wbr/>Strings</a></li><li class="tsd-kind-interface"><a href="interfaces/LanguageTranslations.html" class="tsd-kind-icon">Language<wbr/>Translations</a></li><li class="tsd-kind-interface"><a href="interfaces/Manifest.html" class="tsd-kind-icon">Manifest</a></li><li class="tsd-kind-interface"><a href="interfaces/Translations.html" class="tsd-kind-icon">Translations</a></li></ul></nav></div></div></div><footer class=""><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="overlay"></div><script src="assets/main.js"></script></body></html>
