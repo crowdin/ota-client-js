@@ -9,7 +9,7 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 <div align="center">
 
 [**`Live Demo`**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo) &nbsp;|&nbsp;
-[**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js/classes/default.html)
+[**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js/classes/default.html) &nbsp;|&nbsp;
 [**`Examples`**](https://github.com/crowdin/ota-client-js/wiki)
 
 [![CI](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml/badge.svg)](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml)
