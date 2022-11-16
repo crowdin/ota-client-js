@@ -1,4 +1,4 @@
-[<p align='center'><img src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' data-canonical-src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' width='200' height='200' align='center'/></p>](https://crowdin.com)
+[<p align='center'><img src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' data-canonical-src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' width='150' height='150' align='center'/></p>](https://crowdin.com)
 
 # Crowdin OTA JavaScript client [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fcrowdin%2Fota-client-js&text=Lightweight%20library%20for%20Crowdin%20Over-The-Air%20Content%20Delivery.%20The%20best%20way%20to%20deliver%20translations%20to%20your%20site%20Over-The-Air)&nbsp;[![GitHub Repo stars](https://img.shields.io/github/stars/crowdin/ota-client-js?style=social&cacheSeconds=1800)](https://github.com/crowdin/ota-client-js/stargazers)
 
@@ -10,6 +10,7 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 
 [**`Live Demo`**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo) &nbsp;|&nbsp;
 [**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js/classes/default.html)
+[**`Examples`**](https://github.com/crowdin/ota-client-js/wiki)
 
 [![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
 [![npm](https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
@@ -21,6 +22,8 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 
 ## Works with
 
+<div align="center">
+
 ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&cacheSeconds=10000&labelColor=grey&style=flat)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-2f74c0?logo=typescript&cacheSeconds=10000&labelColor=grey&style=flat)
 ![Nodejs](https://img.shields.io/badge/-Nodejs-88c24a?logo=Node.js&cacheSeconds=10000&labelColor=grey&style=flat)
@@ -31,13 +34,10 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 ![AngularJS](https://img.shields.io/badge/-AngularJS-d6082f?logo=angularjs&cacheSeconds=10000&labelColor=grey&style=flat)
 ![EmberJS](https://img.shields.io/badge/-EmberJS-db492f?logo=emberdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
 ![NextJS](https://img.shields.io/badge/-NextJS-cfd7da?logo=nextdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![NestJs](https://img.shields.io/badge/nestjs-E0234E?cacheSeconds=10000&logo=nestjs&logoColor=white&labelColor=black&style=flat)
+![HandlebarsJS](https://img.shields.io/badge/Handlebars.js-f0772b?cacheSeconds=10000&logo=handlebarsdotjs&logoColor=black&labelColor=grey&style=flat)
 
-## Build Status
-
-| Linux | Windows | MacOS |
-|--------------------|------------------|------------------|
-|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Ubuntu?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&branchName=main)|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/Windows?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&branchName=main)|[![Build Status](https://dev.azure.com/crowdin/ota-client-js/_apis/build/status/MacOS?branchName=main)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&branchName=main)
-|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/29/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=29&branchName=main)|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/31/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=31&branchName=main)|[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/ota-client-js/30/main?cacheSeconds=1800)](https://dev.azure.com/crowdin/ota-client-js/_build/latest?definitionId=30&branchName=main)
+</div>
 
 ## Table of Contents
 * [Installation](#installation)
