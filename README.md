@@ -62,7 +62,7 @@ Information about Crowdin OTA can be found in the [Knowledge Base article](https
 
 Distribution is a CDN vault that mirrors the translated content of your project. Thanks to the CDN (Content Delivery Network), the translated content will become available to users much faster.
 
-To create a distribution, open *Tools* > *Content Delivery* in your Crowdin project and click the *Add distribution* button. Then type a name, select the files translations for which you want to be shown in your application, select export options, and click *Next*. Copy the distribution hash so you can use it for integration.
+To create a distribution, open *Translations* > *Over-The-Air Content Delivery* in your Crowdin project and click the *Add distribution* button. Then type a name, select the files translations for which you want to be shown in your application, select export options, and click *Next*. Copy the distribution hash so you can use it for integration.
 
 For more information about the "Bundle" export option click [Using bundles](#using-bundles).
 
@@ -156,7 +156,7 @@ client.getFileTranslations(file, languageCode)
 
 </details>
 
-You can create a new distribution in your Crowdin project settings (*Tools* > *Content Delivery*) or using Distributions API through [REST API](https://support.crowdin.com/api/v2/). After that you will receive a *Distribution hash*.
+You can create a new distribution in your Crowdin project settings (*Translations* > *Over-The-Air Content Delivery*) or using Distributions API through [REST API](https://support.crowdin.com/api/v2/). After that you will receive a *Distribution hash*.
 
 ### Client methods
 
