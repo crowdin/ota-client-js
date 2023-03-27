@@ -80,17 +80,15 @@ const hash = '{distribution_hash}';
 // initialization of crowdin ota client
 const client = new otaClient(hash);
 
-// get list of files in distribution
-client.listFiles()
-  .then(file => console.log(file))
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
   .catch(error => console.error(error));
 
-// one of target languages in Crowdin project (could be retrieved via client.listLanguages)
-const languageCode = 'uk';
-// one of files from client.listFiles
-const file = 'file';
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
 // get file translations
-client.getFileTranslations(file, languageCode)
+client.getFileTranslations(file)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -110,17 +108,15 @@ const hash = '{distribution_hash}';
 // initialization of crowdin ota client
 const client = new otaClient(hash);
 
-// get list of files in distribution
-client.listFiles()
-  .then(file => console.log(file))
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
   .catch(error => console.error(error));
 
-// one of target languages in Crowdin project (could be retrieved via client.listLanguages)
-const languageCode = 'uk';
-// one of files from client.listFiles
-const file = 'file';
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
 // get file translations
-client.getFileTranslations(file, languageCode)
+client.getFileTranslations(file)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -139,17 +135,15 @@ const hash = '{distribution_hash}';
 // initialization of crowdin ota client
 const client = new otaClient(hash);
 
-// get list of files in distribution
-client.listFiles()
-  .then(file => console.log(file))
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
   .catch(error => console.error(error));
 
-// one of target languages in Crowdin project (could be retrieved via client.listLanguages)
-const languageCode = 'uk';
-// one of files from client.listFiles
-const file = 'file';
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
 // get file translations
-client.getFileTranslations(file, languageCode)
+client.getFileTranslations(file)
   .then(translations => console.log(translations))
   .catch(error => console.error(error));
 ```
@@ -163,29 +157,24 @@ You can create a new distribution in your Crowdin project settings (*Translation
 Client contains methods to retrieve translation strings from files as a plain text and from JSON files as an objects.
 Also, there are several helper methods.
 
-| Method name                      | Description                                                                                | Input arguments                                                                                                        |
-|----------------------------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Method name                      | Description                                                                                | Input arguments                                                    |
+|----------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
 | **Methods for plain text**       |
-| `getTranslations`                | Returns translations for all languages                                                     |                                                                                                                        |
-| `getLanguageTranslations`        | Returns translations for specific language                                                 | `languageCode` (optional, otherwise use `setCurrentLocale`)                                                            |
-| `getFileTranslations`            | Returns translations for specific language and file                                        | `file` (e.g. one from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`)                        |
+| `getTranslations`                | Returns translations for all languages                                                     |                                                                    |
+| `getLanguageTranslations`        | Returns translations for specific language                                                 | `languageCode` (optional, otherwise use `setCurrentLocale`)        |
+| `getFileTranslations`            | Returns translations for specific file                                                     | `file` (e.g. one from `getContent`)                                |
 | **Methods for JSON-based files** |
-| `getStrings`                     | Returns translations for all languages                                                     | `file` (optional, e.g. json file from `listFiles`)                                                                     |
-| `getStringsByLocale`             | Returns translations for specific language                                                 | `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`)        |
-| `getStringByKey`                 | Returns translation for language for specific key                                          | `key`, `file` (optional, e.g. json file from `listFiles`), `languageCode` (optional, otherwise use `setCurrentLocale`) |
+| `getStrings`                     | Returns translations for all languages                                                     |                                                                    |
+| `getStringsByLocale`             | Returns translations for specific language                                                 | `languageCode` (optional, otherwise use `setCurrentLocale`)        |
+| `getStringByKey`                 | Returns translation for language for specific key                                          | `key`, `languageCode` (optional, otherwise use `setCurrentLocale`) |
 | **Helper methods**               |
-| `getHash`                        | Returns distribution hash                                                                  |                                                                                                                        |
-| `setCurrentLocale`               | Define global language for client instance                                                 | `languageCode`                                                                                                         |
-| `getCurrentLocale`               | Get global language for client instance                                                    |                                                                                                                        |
-| `getManifestTimestamp`           | Get manifest timestamp of distribution                                                     |                                                                                                                        |
-| `listFiles`                      | List of files in distribution                                                              |                                                                                                                        |
-| `listLanguages`                  | List of project language codes                                                             |                                                                                                                        |
-| `getReplacedLanguages`           | List of project language codes in the provided format                                      | `format` (placeholder format you want to replace your languages with, e.g. `locale`)                                   |
-| `getReplacedFiles`               | List of files in distribution with variables replaced with the corresponding language code |                                                                                                                        |
-| `getLanguageObjects`             | List of project language objects                                                           |                                                                                                                        |
-| `clearStringsCache`              | Clear cache of translation strings                                                         |                                                                                                                        |
-| `getLanguageMappings`            | Get project language mapping                                                               |                                                                                                                        |
-| `getCustomLanguages`             | Get project custom languages                                                               |                                                                                                                        |
+| `getHash`                        | Returns distribution hash                                                                  |                                                                    |
+| `setCurrentLocale`               | Define global language for client instance                                                 | `languageCode`                                                     |
+| `getCurrentLocale`               | Get global language for client instance                                                    |                                                                    |
+| `getManifestTimestamp`           | Get manifest timestamp of distribution                                                     |                                                                    |
+| `getContent`                     | Get content info in distribution                                                           |                                                                    |
+| `listLanguages`                  | List of project language codes                                                             |                                                                    |
+| `clearStringsCache`              | Clear cache of translation strings                                                         |                                                                    |
 
 Example of loading strings from JSON files:
 
@@ -205,13 +194,13 @@ client.getStrings()
   .catch(error => console.error(error));
 
 // or get concrete translation by key
-client.getStringByKey(['application', 'title'], '/folder/file.json', 'uk')
+client.getStringByKey(['application', 'title'], 'uk')
   .then(title => console.log(title))
   .catch(error => console.error(error));
 
 // or define global language and do not pass it everywhere
 client.setCurrentLocale('uk');
-client.getStringByKey(['application', 'title'], '/folder/file.json')
+client.getStringByKey(['application', 'title'])
   .then(title => console.log(title))
   .catch(error => console.error(error));
 ```
@@ -227,9 +216,7 @@ There is a possibility to customize Client for your needs. You can pass a config
 | `disableManifestCache`         | Disable caching of manifest file which will lead to additional request for each client method                                                                                            | `true`                                               |
 | `languageCode`                 | Default language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method)                                             | `uk`                                                 |
 | `disableStringsCache`          | Disable caching of translation strings which is used for JSON-based client methods                                                                                                       | `true`                                               |
-| `disableLanguagesCache`        | Disable caching of Crowdin's language list                                                                                                                                               | `true`                                               |
 | `disableJsonDeepMerge`         | Disable deep merge of json-based files for string-based methods and use shallow merge                                                                                                    | `true`                                               |
-| `enterpriseOrganizationDomain` | The domain of your Crowdin enterprise organization. If provided, the client will use the Crowdin Enterprise API endpoint to fetch languages, as opposed to the regular API when missing. | `organization_domain`                                |
 
 ```typescript
 import otaClient, { ClientConfig } from'@crowdin/ota-client';
