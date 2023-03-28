@@ -1,0 +1,132 @@
+# Quick Start
+
+## Creating a distribution
+
+Distribution is a CDN vault that mirrors the translated content of your project. Thanks to the CDN (Content Delivery Network), the translated content will become available to users much faster.
+
+- [Creating a distribution in crowdin.com](https://support.crowdin.com/content-delivery/)
+- [Creating a distribution in Crowdin Enterprise](https://support.crowdin.com/enterprise/content-delivery/)
+
+## Usage
+
+### JSON Content
+
+Example of loading strings from JSON files:
+
+```typescript
+import otaClient from'@crowdin/ota-client';
+
+const hash = '{distribution_hash}';
+
+const client = new otaClient(hash);
+
+// will return all translation strings for all languages from all json files
+client.getStrings()
+  .then(res => {
+    // get needed translation by language + key
+    console.log(res.uk.application.title);
+  })
+  .catch(error => console.error(error));
+
+// or get exact translation by key
+client.getStringByKey(['application', 'title'], 'uk')
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+
+// or define a global language and not pass it everywhere
+client.setCurrentLocale('uk');
+client.getStringByKey(['application', 'title'])
+  .then(title => console.log(title))
+  .catch(error => console.error(error));
+```
+
+[**Live Demo**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo).
+
+### Other examples
+
+<details>
+<summary>Typescript</summary>
+
+```typescript
+import otaClient from '@crowdin/ota-client';
+
+// distribution hash
+const hash = '{distribution_hash}';
+
+// initialization of crowdin ota client
+const client = new otaClient(hash);
+
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
+  .catch(error => console.error(error));
+
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
+// get file translations
+client.getFileTranslations(file)
+  .then(translations => console.log(translations))
+  .catch(error => console.error(error));
+```
+
+</details>
+
+<details>
+<summary>Javascript ES6 modules</summary>
+
+```javascript
+import otaClient from '@crowdin/ota-client';
+// or const otaClient = require('./out/index.js').default;
+
+// distribution hash
+const hash = '{distribution_hash}';
+
+// initialization of crowdin ota client
+const client = new otaClient(hash);
+
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
+  .catch(error => console.error(error));
+
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
+// get file translations
+client.getFileTranslations(file)
+  .then(translations => console.log(translations))
+  .catch(error => console.error(error));
+```
+
+</details>
+
+<details>
+<summary>Javascript CommonJS</summary>
+
+```javascript
+const otaClient = require('@crowdin/ota-client').default;
+
+// distribution hash
+const hash = '{distribution_hash}';
+
+// initialization of crowdin ota client
+const client = new otaClient(hash);
+
+// get content info in distribution
+client.getContent()
+  .then(content => console.log(content))
+  .catch(error => console.error(error));
+
+// one of files for fr language from client.getContent
+const file = '/content/fr/file.json';
+// get file translations
+client.getFileTranslations(file)
+  .then(translations => console.log(translations))
+  .catch(error => console.error(error));
+```
+
+</details>
+
+## Further reading
+
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)

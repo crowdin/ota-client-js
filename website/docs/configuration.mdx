@@ -1,0 +1,69 @@
+# Configuration
+
+There is a way to customize the client to your needs. You can pass a configuration object as a second (optional) argument in the constructor.
+
+```typescript
+import otaClient, { ClientConfig } from'@crowdin/ota-client';
+
+const config: ClientConfig = {
+  httpClient: customHttpClient,
+  disableManifestCache: false,
+  languageCode: 'uk',
+  disableStringsCache: false,
+  disableJsonDeepMerge: true
+};
+
+const hash = '{distribution_hash}';
+
+const client = new otaClient(hash, config);
+```
+
+## Config Options
+
+### `hash`
+
+Distribution Hash. See the [Content Delivery](https://support.crowdin.com/content-delivery/) article for more details.
+
+### `httpClient`
+
+Custom HTTP client.
+
+Default: [Axios](https://www.npmjs.com/package/axios) HTTP client
+
+### `languageCode`
+
+Default language code to be used if language was not passed as an input argument of the method (also possible via `setCurrentLocale` method)
+
+### `disableManifestCache`
+
+Disable distribution manifest file caching, which results in an additional request for each client method.
+
+Default: `false`
+
+:::caution
+
+Disabling the manifest cache may result in [additional charges](https://crowdin.com/pricing#crowdin-pricing-addons).
+
+:::
+
+### `disableStringsCache`
+
+Disable caching of translation strings which is used for JSON-based client methods.
+
+Default: `false`
+
+:::caution
+
+Disabling the strings cache may result in [additional charges](https://crowdin.com/pricing#crowdin-pricing-addons).
+
+:::
+
+### `disableJsonDeepMerge`
+
+Disable deep merge of json-based files for string-based methods and use shallow merge.
+
+Default: `false`
+
+## Further reading
+
+- [API](api/classes/OtaClient)

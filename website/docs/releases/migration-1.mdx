@@ -1,0 +1,16 @@
+# Migration from 0.x to 1.x
+
+Since the distribution `manifest.json` now returns the `content` node with all file paths, there is no need to manually calculate file paths based on language placeholders and mapping. This eliminates extra work and makes the library simpler and faster.
+
+Also, the Crowdin Languages API request is no longer needed, which will reduce traffic and improve performance.
+
+**Removed some redundant OTA JS client functions:**
+
+- `listFiles` (replaced by `getContent` which returns files per language)
+- `getReplacedLanguages` (no manipulations with languages anymore)
+- `getReplacedFiles` (no manipulations with languages anymore)
+- `getLanguageObjects` (no manipulations with languages anymore)
+- `getLanguageMappings` (no manipulations with languages anymore)
+- `getCustomLanguages` (no manipulations with languages anymore)
+
+Also, the `file` argument has been removed from several functions. It is still possible to get translations for a specific file using the `getFileTranslations` method (file path must be provided, which is returned by the `getContent` method).

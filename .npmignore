@@ -7,7 +7,7 @@ tests
 tsconfig.json
 yarn.lock
 node_modules
-docs
+website
 .docs-config
 .github
 .husky

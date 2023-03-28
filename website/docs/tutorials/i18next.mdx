@@ -1,0 +1,49 @@
+# i18next
+
+## Installation
+
+Crowdin OTA Client and i18next can be installed by using the following command:
+
+```bash npm2yarn
+npm install @crowdin/ota-client i18next
+```
+
+## Usage
+
+To integrate Crowdin OTA Client with i18next, we can write tiny [plugin](https://www.i18next.com/misc/creating-own-plugins):
+
+```typescript
+import otaClient from '@crowdin/ota-client';
+import i18next from 'i18next';
+
+class CrowdinOtaI18next {
+    constructor(hash) {
+        this.type = 'backend';
+        this.otaClient = new otaClient(hash);
+    }
+
+    read(language, namespace, callback) {
+        this.otaClient
+            .getStringsByLocale(language)
+            .then((value) => callback(null, value))
+            .catch((e) => callback(e, null));
+    }
+}
+
+const module = new CrowdinOtaI18next('{hash}');
+const i18nextOptions = {
+    lng: 'uk',
+    fallbackLng: false
+};
+
+i18next
+    .use(module)
+    .init(i18nextOptions, () => {
+        document.getElementById('output').innerHTML = i18next.t('key')
+    });
+```
+
+## Further reading
+
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)

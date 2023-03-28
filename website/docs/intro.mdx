@@ -1,0 +1,67 @@
+---
+slug: /
+---
+
+# Introduction
+
+Instantly update translations in your Web (React, Next.JS, NestJS, etc.), React Native or any JS-based application without preparing a new release. Enable all teams to manage the UI copy without solely relying on the development team.
+
+The Crowdin OTA JS Client provides methods to retrieve translation strings from JSON as objects or as plain text for other files. It also provides several helper methods.
+
+<div align="center">
+
+[![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
+[![npm](https://img.shields.io/npm/dt/@crowdin/ota-client?cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
+[![codecov](https://codecov.io/gh/crowdin/ota-client-js/branch/main/graph/badge.svg)](https://codecov.io/gh/crowdin/ota-client-js)
+[![GitHub issues](https://img.shields.io/github/issues/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/issues)
+[![License](https://img.shields.io/github/license/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/blob/main/LICENSE)
+
+</div>
+
+## How it works
+
+![How it works](/img/scheme-how-it-works.png)
+
+**AWS CloudFront**: Low latency, High reliability.
+
+**Fair price**: Free tier.
+
+[**Live Demo**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo).
+
+## Bundles
+
+Bundles allows you to generate resource files from your project strings. You can upload strings to Crowdin in any format (e.g. spreadsheet file) or create keys using the Figma plugin. Then use bundles to generate resource files to be used in your mobile or web application in any format.
+
+By default, you can choose from the following three formats: XLIFF, Android XML, and iOS Strings. Additionally, you can add more target file formats by installing respective applications from the [Crowdin Marketplace](https://store.crowdin.com/tags/string-exporter). The [JSON String Exporter](https://store.crowdin.com/json-string-exporter) is a recommended for the OTA JS Client integration.
+
+For more details, visit Knowledge Base:
+
+- [Bundles in OTA Content Delivery (crowdin.com)](https://support.crowdin.com/bundles/#bundles-in-ota-content-delivery)
+- [Bundles in OTA Content Delivery (Crowdin Enterprise)](https://support.crowdin.com/enterprise/bundles/#bundles-in-ota-content-delivery)
+
+:::info
+
+[Additional charges](https://crowdin.com/pricing#crowdin-pricing-addons) may apply after the free quota (1M requests or 10GB of data transfer per month) is used up.
+
+:::
+
+## Works with
+
+![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&cacheSeconds=10000&labelColor=grey&style=flat)
+![TypeScript](https://img.shields.io/badge/-TypeScript-2f74c0?logo=typescript&cacheSeconds=10000&labelColor=grey&style=flat)
+![Nodejs](https://img.shields.io/badge/-Nodejs-88c24a?logo=Node.js&cacheSeconds=10000&labelColor=grey&style=flat)
+![i18next](https://img.shields.io/badge/-i18next-119184?logo=i18next&cacheSeconds=10000&labelColor=grey&style=flat)
+![React](https://img.shields.io/badge/-React-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat)
+![React Native](https://img.shields.io/badge/-ReactNative-5ed3f3?logo=react&cacheSeconds=10000&labelColor=grey&style=flat)
+![VueJS](https://img.shields.io/badge/-VueJS-1bb77e?logo=Vue.js&cacheSeconds=10000&labelColor=grey&style=flat)
+![AngularJS](https://img.shields.io/badge/-AngularJS-d6082f?logo=angularjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![EmberJS](https://img.shields.io/badge/-EmberJS-db492f?logo=emberdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![NextJS](https://img.shields.io/badge/-NextJS-cfd7da?logo=nextdotjs&cacheSeconds=10000&labelColor=grey&style=flat)
+![NestJs](https://img.shields.io/badge/nestjs-E0234E?cacheSeconds=10000&logo=nestjs&logoColor=white&labelColor=black&style=flat)
+![HandlebarsJS](https://img.shields.io/badge/Handlebars.js-f0772b?cacheSeconds=10000&logo=handlebarsdotjs&logoColor=black&labelColor=grey&style=flat)
+
+## Further reading
+
+- [Quick Start](quick-start)
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)
