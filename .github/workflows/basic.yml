@@ -41,18 +41,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
       - name: Install dependencies
-        run: |
-          npm install
-      - name: Lint
-        run: |
-          npm run lint-ci
+        run: npm ci
+
       - name: Build
-        run: |
-          npm run build
+        run: npm run build
+
       - name: Tests
-        run: |
-          npm run test
+        run: npm run test
 
   code-coverage:
     runs-on: ubuntu-latest
@@ -60,29 +57,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'npm'
+
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint-ci
+
       - name: Generate code coverage report
-        run: |
-          npm run test-coverage
+        run: npm run test-coverage
+
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         with:
