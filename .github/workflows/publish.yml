@@ -2,7 +2,7 @@ name: Publish
 
 on:
   release:
-    types: [released]
+    types: [released, prereleased]
 
 jobs:
   publish-npm:
@@ -15,10 +15,21 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      - name: Install dependencies, build and publish
+      - name: Install dependencies, build
         run: |
           npm ci
           npm run build
+
+      - name: Publish 'latest'
+        if: ${{ github.event.action == 'released' }}
+        run: |
           npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish 'next'
+        if: ${{ github.event.action == 'prereleased' }}
+        run: |
+          npm publish --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
