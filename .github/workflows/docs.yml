@@ -19,6 +19,9 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
+        run: npm ci
+
+      - name: Install docs dependencies
         working-directory: website
         run: npm ci
 
