@@ -70,6 +70,15 @@ export default class OtaClient {
     }
 
     /**
+     * List of files in distribution for specific language
+     */
+    async getLanguageContent(languageCode?: string): Promise<string[]> {
+        const language = this.getLanguageCode(languageCode);
+        const content = await this.getContent();
+        return content[language];
+    }
+
+    /**
      * List of project language codes
      */
     async listLanguages(): Promise<string[]> {
@@ -114,6 +123,11 @@ export default class OtaClient {
      * @param languageCode language code
      */
     async getFileTranslations(file: string): Promise<string | any | null> {
+        const content = await this.getContent();
+        const fileExists = Object.values(content).some(files => files.includes(file));
+        if (!fileExists) {
+            throw new Error(`File ${file} does not exists in manifest content`);
+        }
         const timestamp = await this.getManifestTimestamp();
         const url = `${OtaClient.BASE_URL}/${this.distributionHash}${file}?timestamp=${timestamp}`;
         return this.httpClient.get<string | any>(url).catch(() => null);
