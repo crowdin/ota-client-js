@@ -4,12 +4,10 @@
 
 Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to deliver translations to your site Over-The-Air :dizzy:
 
-Information about Crowdin OTA can be found in the [Knowledge Base article](https://support.crowdin.com/content-delivery/). Also, visit the [Wiki](https://github.com/crowdin/ota-client-js/wiki) to read more about the advanced usage of OTA Client.
-
 <div align="center">
 
 [**`Live Demo`**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo) &nbsp;|&nbsp;
-[**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js) &nbsp;|&nbsp;
+[**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js)
 
 [![CI](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml/badge.svg)](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml)
 [![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
@@ -49,7 +47,7 @@ If you would like to contribute please read the [Contributing](/CONTRIBUTING.md)
 
 ## Seeking Assistance
 
-If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/ota-client-js/issues).
+If you find any problems or would like to suggest a feature, please feel free to file an issue at [Issues Page](https://github.com/crowdin/ota-client-js/issues).
 
 ## License
 
