@@ -15,5 +15,15 @@
     "exclude": [
         "node_modules",
         "tests"
-    ]
+    ],
+    "typedocOptions": {
+        "entryPoints": ["src/index.ts"],
+        "excludeInternal": true,
+        "excludeProtected": true,
+        "excludeExternals": true,
+        "excludePrivate": true,
+        "hideGenerator": true,
+        "readme": "none",
+        "categoryOrder": ["Strings Management", "Content Management", "Helpers"]
+    }
 }

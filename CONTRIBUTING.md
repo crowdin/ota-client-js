@@ -66,27 +66,31 @@ Before sending your pull requests, make sure you followed the list below:
 - Run unit tests.
 - Ensure that docs are correctly generating.
 
-#### Docs
+#### Contributing to the docs
 
-##### Generate
+The documentation is based on [Docusaurus](https://docusaurus.io/) framework. Source inside the [website](https://github.com/crowdin/ota-client-js/tree/main/website) directory.
 
-To generate the docs run the following command:
+- Go to the `website` directory:
 
-```console
-npm run generate-docs
-```
+  ```sh
+  cd website
+  ```
 
-##### Preview
+- Install dependencies:
 
-To preview the docs locally, run the following commands:
+   ```sh
+   npm install
+   ```
 
-```console
-npm install http-server -g
+- To build the docs, watch for changes and preview documentation locally at [http://localhost:3000/](http://localhost:3000/):
 
-http-server docs
-```
+   ```sh
+   npm start
+   ```
 
-Open `http://127.0.0.1:8080` in browser
+- It's also possible to run `npm run build` for single build. Incremental builds are much faster than the first one as only changed files are built.
+
+Open `http://127.0.0.1:3000` in browser
 
 #### Philosophy of code contribution
 

@@ -1,0 +1,32 @@
+# React Native
+
+## Installation
+
+```bash npm2yarn
+npm install @crowdin/ota-client
+```
+
+## Client initialization
+
+```typescript
+import OtaClient from '@crowdin/ota-client';
+
+const otaClient = new OtaClient('{distribution_hash}');
+```
+
+## Integration with `react-native-localization`
+
+```typescript
+import LocalizedStrings from 'react-native-localization';
+
+//localizedStrings is an instance of translations which is used across whole application
+async function build(localizedStrings: LocalizedStrings) {
+    const translations = await otaClient.getStrings();
+    localizedStrings.setContent(translations);
+}
+```
+
+## Further reading
+
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)

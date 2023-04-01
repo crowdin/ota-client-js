@@ -33,23 +33,29 @@ export default class OtaClient {
     }
 
     /**
-     * Distribution hash
+     * Get the distribution hash
+     *
+     * @category Helper
      */
     getHash(): string {
         return this.distributionHash;
     }
 
     /**
+     * Define the global language for the client instance.
      * Default language code to be used if language was not passed as an input argument of the method
      *
-     * @param languageCode laguage code
+     * @param languageCode language code
+     * @category Helper
      */
     setCurrentLocale(languageCode?: string): void {
         this.locale = languageCode;
     }
 
     /**
-     * Get language code
+     * Get the current locale
+     *
+     * @category Helper
      */
     getCurrentLocale(): string | undefined {
         return this.locale;
@@ -57,20 +63,26 @@ export default class OtaClient {
 
     /**
      * Get manifest timestamp of distribution
+     *
+     * @category Helper
      */
     async getManifestTimestamp(): Promise<number> {
         return (await this.manifest).timestamp;
     }
 
     /**
-     * List of files in distribution
+     * List distribution's files content
+     *
+     * @category Content Management
      */
     async getContent(): Promise<Manifest['content']> {
         return (await this.manifest).content;
     }
 
     /**
-     * List of files in distribution for specific language
+     * List distribution's files content for a specific language
+     *
+     * @category Content Management
      */
     async getLanguageContent(languageCode?: string): Promise<string[]> {
         const language = this.getLanguageCode(languageCode);
@@ -79,7 +91,9 @@ export default class OtaClient {
     }
 
     /**
-     * List of project language codes
+     * List Crowdin project language codes
+     *
+     * @category Helper
      */
     async listLanguages(): Promise<string[]> {
         return Object.keys(await this.getContent());
@@ -87,6 +101,8 @@ export default class OtaClient {
 
     /**
      * Returns all translations per each language code
+     *
+     * @category Content Management
      */
     async getTranslations(): Promise<Translations> {
         const languages = await this.listLanguages();
@@ -100,9 +116,11 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translations per each file in disribution for specific language
+     * Returns translations for each file in the distribution for a given language
      *
      * @param languageCode language code
+     *
+     * @category Content Management
      */
     async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
         const language = this.getLanguageCode(languageCode);
@@ -117,10 +135,11 @@ export default class OtaClient {
     }
 
     /**
-     * Returns file translations
+     * Returns translations for a specific file (content)
      *
      * @param file file content path
-     * @param languageCode language code
+     *
+     * @category Content Management
      */
     async getFileTranslations(file: string): Promise<string | any | null> {
         const content = await this.getContent();
@@ -135,6 +154,8 @@ export default class OtaClient {
 
     /**
      * Returns translation strings from json-based files for all languages
+     *
+     * @category Strings Management
      */
     async getStrings(): Promise<LanguageStrings> {
         const content = await this.getJsonFiles();
@@ -148,9 +169,11 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translation strings from json-based files for specific language
+     * Returns translation strings from json-based files for a given language
      *
      * @param languageCode language code
+     *
+     * @category Strings Management
      */
     async getStringsByLocale(languageCode?: string): Promise<any> {
         const language = this.getLanguageCode(languageCode);
@@ -159,10 +182,12 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translation string for language for specific key
+     * Returns translation string for language for given key
      *
      * @param key path to the translation string in json file
      * @param languageCode language code
+     *
+     * @category Strings Management
      */
     async getStringByKey(key: string[] | string, languageCode?: string): Promise<string | any> {
         const strings = await this.getStringsByLocale(languageCode);
@@ -179,7 +204,9 @@ export default class OtaClient {
     }
 
     /**
-     * Clear cache of translation strings
+     * Clear the translation string cache
+     *
+     * @category Helper
      */
     clearStringsCache(): void {
         this.stringsCache = {};
