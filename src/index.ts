@@ -1,104 +1,6 @@
 import { AxiosHttpClient } from './internal/http/axiosClient';
-import {
-    CustomLanguage,
-    findLanguageObject,
-    includesLanguagePlaceholders,
-    Language,
-    LanguagePlaceholders,
-    languagePlaceholders,
-    replaceLanguagePlaceholders,
-} from './internal/util/exportPattern';
 import { isJsonFile, mergeDeep } from './internal/util/strings';
-
-export interface ClientConfig {
-    /**
-     * Specify your own http client. Default uses axios
-     */
-    httpClient?: HttpClient;
-    /**
-     * Disable cache of distribution manifest. Default is false
-     */
-    disableManifestCache?: boolean;
-    /**
-     * Default language code to be used if language was not passed as an input argument of the method
-     */
-    languageCode?: string;
-    /**
-     * Disable translation strings cache. Default is false
-     */
-    disableStringsCache?: boolean;
-    /**
-     * Disable Crowdin languages cache. Default is false
-     */
-    disableLanguagesCache?: boolean;
-    /**
-     * Disable deep merge and use shallow merge to merge translation strings from json file
-     */
-    disableJsonDeepMerge?: boolean;
-    /**
-     * The name of your Crowdin Enterprise organization
-     * If provided, this will fetch languages from the Enterprise API instead of the Crowdin API v2. The name must be a valid Enterprise organization name.
-     */
-    enterpriseOrganizationDomain?: string;
-}
-
-export interface HttpClient {
-    /**
-     * Executes HTTP GET request
-     *
-     * @param url http url
-     */
-    get<T>(url: string): Promise<T>;
-}
-
-export interface Manifest {
-    files: string[];
-    languages: string[];
-    timestamp: number;
-    // these next two arrays will always be empty if they are arrays, the never type just avoids an eslint error
-    language_mapping: LanguageMappings | never[];
-    custom_languages: CustomLanguages | never[];
-}
-
-export interface LanguageMappings {
-    [languageCode: string]: LanguageMapping;
-}
-
-export interface CustomLanguages {
-    [languageCode: string]: CustomLanguageRaw;
-}
-
-export interface LanguageMapping {
-    [placeholder: string]: string;
-}
-
-export interface Translations {
-    [languageCode: string]: LanguageTranslations[];
-}
-
-export interface LanguageTranslations {
-    file: string;
-    content: string | any | null;
-}
-
-export interface LanguageFiles {
-    [languageCode: string]: string[];
-}
-
-export interface LanguageStrings {
-    [languageCode: string]: any;
-}
-
-export interface CustomLanguageRaw {
-    name: string;
-    two_letters_code: string;
-    three_letters_code: string;
-    locale: string;
-    locale_with_underscore: string;
-    android_code: string;
-    osx_code: string;
-    osx_locale: string;
-}
+import { ClientConfig, HttpClient, LanguageStrings, LanguageTranslations, Manifest, Translations } from './model';
 
 /**
  * @category OtaClient
@@ -112,20 +14,11 @@ export default class OtaClient {
     private manifestHolder?: Promise<Manifest>;
     private disableManifestCache = false;
 
-    private stringsCache: { [file: string]: { [language: string]: Promise<any> } } = {};
+    private stringsCache: { [file: string]: Promise<any> } = {};
     private disableStringsCache = false;
-
-    private languagesCache: Promise<Language[]> | null = null;
-    private disableLanguagesCache = false;
-    private enterpriseOrganizationDomain: string | null = null;
 
     private disableJsonDeepMerge = false;
     private locale?: string;
-
-    /** @internal */
-    public readonly apiURL = `https://${
-        this.enterpriseOrganizationDomain ? `${this.enterpriseOrganizationDomain}.` : ''
-    }api.crowdin.com/api/v2/languages?limit=500`;
 
     /**
      * @param distributionHash hash of released Crowdin project distribution
@@ -137,8 +30,6 @@ export default class OtaClient {
         this.locale = config?.languageCode;
         this.disableStringsCache = !!config?.disableStringsCache;
         this.disableJsonDeepMerge = !!config?.disableJsonDeepMerge;
-        this.disableLanguagesCache = !!config?.disableLanguagesCache;
-        this.enterpriseOrganizationDomain = config?.enterpriseOrganizationDomain ?? null;
     }
 
     /**
@@ -174,95 +65,24 @@ export default class OtaClient {
     /**
      * List of files in distribution
      */
-    async listFiles(): Promise<string[]> {
-        return (await this.manifest).files;
+    async getContent(): Promise<Manifest['content']> {
+        return (await this.manifest).content;
+    }
+
+    /**
+     * List of files in distribution for specific language
+     */
+    async getLanguageContent(languageCode?: string): Promise<string[]> {
+        const language = this.getLanguageCode(languageCode);
+        const content = await this.getContent();
+        return content[language];
     }
 
     /**
      * List of project language codes
      */
     async listLanguages(): Promise<string[]> {
-        return (await this.manifest).languages;
-    }
-
-    /**
-     * List of project language codes in the provided format
-     * @param format The placeholder format you want to replace your languages with
-     */
-    async getReplacedLanguages(format: LanguagePlaceholders): Promise<string[]> {
-        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
-            this.listLanguages(),
-            this.getCustomLanguages(),
-            this.getLanguages(),
-        ]);
-
-        return projectLanguages.map(l =>
-            languagePlaceholders[format](findLanguageObject(l, apiLanguages, customLanguages?.[l])),
-        );
-    }
-
-    /**
-     * List of files in distribution with variables replaced with the corresponding language code
-     */
-    async getReplacedFiles(): Promise<LanguageFiles> {
-        const [customLanguages, languageMappings, files, projectLanguages, apiLanguages] = await Promise.all([
-            this.getCustomLanguages(),
-            this.getLanguageMappings(),
-            this.listFiles(),
-            this.listLanguages(),
-            this.getLanguages(),
-        ]);
-
-        const result: Record<string, string[]> = {};
-        await Promise.all(
-            projectLanguages.map(async language => {
-                result[language] = await Promise.all(
-                    files.map(file =>
-                        replaceLanguagePlaceholders(
-                            file,
-                            language,
-                            apiLanguages,
-                            languageMappings?.[language],
-                            customLanguages?.[language],
-                        ),
-                    ),
-                );
-            }),
-        );
-        return result;
-    }
-
-    /**
-     * List of project language objects
-     */
-    async getLanguageObjects(): Promise<(Language | CustomLanguage)[]> {
-        const [projectLanguages, customLanguages, apiLanguages] = await Promise.all([
-            this.listLanguages(),
-            this.getCustomLanguages(),
-            this.getLanguages(),
-        ]);
-
-        return Promise.all(
-            projectLanguages.map(language => findLanguageObject(language, apiLanguages, customLanguages?.[language])!),
-        );
-    }
-
-    /**
-     * Language mappings
-     */
-    async getLanguageMappings(): Promise<LanguageMappings | null> {
-        const languageMappings = (await this.manifest).language_mapping;
-        // languageMappings will be an empty array if there are none, or an object of the provided type otherwise
-        return Array.isArray(languageMappings) ? null : languageMappings;
-    }
-
-    /**
-     * Custom languages
-     */
-    async getCustomLanguages(): Promise<CustomLanguages | null> {
-        const customLanguages = (await this.manifest).custom_languages;
-        // customLanguages will be an empty array if there are none, or an object of the provided type otherwise
-        return Array.isArray(customLanguages) ? null : customLanguages;
+        return Object.keys(await this.getContent());
     }
 
     /**
@@ -286,10 +106,11 @@ export default class OtaClient {
      */
     async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
         const language = this.getLanguageCode(languageCode);
-        const files = await this.listFiles();
+        const content = await this.getContent();
+        const files = content[language] || [];
         return Promise.all(
             files.map(async file => {
-                const content = await this.getFileTranslations(file, language);
+                const content = await this.getFileTranslations(file);
                 return { content, file };
             }),
         );
@@ -298,41 +119,29 @@ export default class OtaClient {
     /**
      * Returns file translations
      *
-     * @param file file from distribution
+     * @param file file content path
      * @param languageCode language code
      */
-    async getFileTranslations(file: string, languageCode?: string): Promise<string | any | null> {
-        let url = `${OtaClient.BASE_URL}/${this.distributionHash}/content`;
-        const language = this.getLanguageCode(languageCode);
-        const [languageMappings, customLanguages, apiLanguages] = await Promise.all([
-            this.getLanguageMappings(),
-            this.getCustomLanguages(),
-            this.getLanguages(),
-        ]);
-        const languageMapping = (languageMappings ?? {})[language];
-        const customLanguage = (customLanguages ?? {})[language];
-        if (includesLanguagePlaceholders(file)) {
-            url += replaceLanguagePlaceholders(file, language, apiLanguages, languageMapping, customLanguage);
-        } else {
-            url += `/${language}${file}`;
+    async getFileTranslations(file: string): Promise<string | any | null> {
+        const content = await this.getContent();
+        const fileExists = Object.values(content).some(files => files.includes(file));
+        if (!fileExists) {
+            throw new Error(`File ${file} does not exists in manifest content`);
         }
         const timestamp = await this.getManifestTimestamp();
-        url += `?timestamp=${timestamp}`;
+        const url = `${OtaClient.BASE_URL}/${this.distributionHash}${file}?timestamp=${timestamp}`;
         return this.httpClient.get<string | any>(url).catch(() => null);
     }
 
     /**
      * Returns translation strings from json-based files for all languages
-     *
-     * @param file filter strings by specific file (leave undefined to get from all json files)
      */
-    async getStrings(file?: string): Promise<LanguageStrings> {
-        const files = await this.getJsonFiles(file);
-        const languages = await this.listLanguages();
+    async getStrings(): Promise<LanguageStrings> {
+        const content = await this.getJsonFiles();
         const res: LanguageStrings = {};
         await Promise.all(
-            languages.map(async language => {
-                res[language] = await this.getStringsByFilesAndLocale(files, language);
+            Object.entries(content).map(async ([lang, files]) => {
+                res[lang] = await this.getStringsByFilesAndLocale(files);
             }),
         );
         return res;
@@ -341,24 +150,22 @@ export default class OtaClient {
     /**
      * Returns translation strings from json-based files for specific language
      *
-     * @param file filter strings by specific file (leave undefined to get from all json files)
      * @param languageCode language code
      */
-    async getStringsByLocale(file?: string, languageCode?: string): Promise<any> {
+    async getStringsByLocale(languageCode?: string): Promise<any> {
         const language = this.getLanguageCode(languageCode);
-        const files = await this.getJsonFiles(file);
-        return this.getStringsByFilesAndLocale(files, language);
+        const content = await this.getJsonFiles();
+        return this.getStringsByFilesAndLocale(content[language] || []);
     }
 
     /**
      * Returns translation string for language for specific key
      *
      * @param key path to the translation string in json file
-     * @param file filter strings by specific file (leave undefined to get from all json files)
      * @param languageCode language code
      */
-    async getStringByKey(key: string[] | string, file?: string, languageCode?: string): Promise<string | any> {
-        const strings = await this.getStringsByLocale(file, languageCode);
+    async getStringByKey(key: string[] | string, languageCode?: string): Promise<string | any> {
+        const strings = await this.getStringsByLocale(languageCode);
         const path = Array.isArray(key) ? key : [key];
         const firstKey = path.shift();
         if (!firstKey) {
@@ -378,21 +185,17 @@ export default class OtaClient {
         this.stringsCache = {};
     }
 
-    private async getStringsByFilesAndLocale(files: string[], language: string): Promise<any> {
+    private async getStringsByFilesAndLocale(files: string[]): Promise<any> {
         let strings = {};
         for (const filePath of files) {
             let content;
-            const fileCache = await (this.stringsCache[filePath] ?? {})[language];
-            if (fileCache) {
-                content = fileCache;
+            if (!!this.stringsCache[filePath]) {
+                content = await this.stringsCache[filePath];
             } else {
                 if (!this.disableStringsCache) {
-                    this.stringsCache[filePath] = {
-                        ...this.stringsCache[filePath],
-                        [language]: this.getFileTranslations(filePath, language),
-                    };
+                    this.stringsCache[filePath] = this.getFileTranslations(filePath);
                 }
-                content = await this.stringsCache[filePath][language];
+                content = await this.stringsCache[filePath];
             }
             if (this.disableJsonDeepMerge) {
                 strings = { ...strings, ...content };
@@ -423,24 +226,10 @@ export default class OtaClient {
         }
     }
 
-    private async getJsonFiles(file?: string): Promise<string[]> {
-        return (await this.listFiles()).filter(f => !file || file === f).filter(isJsonFile);
+    private async getJsonFiles(): Promise<Manifest['content']> {
+        const content = await this.getContent();
+        const res: Manifest['content'] = {};
+        Object.entries(content).forEach(([lang, files]) => (res[lang] = files.filter(isJsonFile)));
+        return res;
     }
-
-    private getLanguages(): Promise<Language[]> {
-        if (this.languagesCache) {
-            return this.languagesCache;
-        }
-        const languages = this.httpClient.get<LanguagesData>(this.apiURL).then(d => d.data.map(l => l.data));
-        if (!this.disableLanguagesCache) {
-            this.languagesCache = languages;
-        }
-        return languages;
-    }
-}
-
-interface LanguagesData {
-    data: {
-        data: Language;
-    }[];
 }

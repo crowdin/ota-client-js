@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { HttpClient } from '../..';
+import { HttpClient } from '../../model';
 
 export class AxiosHttpClient implements HttpClient {
     private axios: AxiosInstance = axios.create({});
