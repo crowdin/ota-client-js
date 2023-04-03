@@ -32,10 +32,8 @@ describe('OTA client', () => {
             uk: [filePath, jsonFilePath1, jsonFilePath2],
         },
         mapping: ['/mapping/en/folder1/file1.csv', '/mapping/en/folder/file1.json', '/mapping/en/folder/file2.json'],
-        /* eslint-disable @typescript-eslint/camelcase */
         language_mapping: [] as never[],
         custom_languages: [] as never[],
-        /* eslint-enable @typescript-eslint/camelcase */
     };
 
     beforeAll(() => {
@@ -91,13 +89,13 @@ describe('OTA client', () => {
     it('should return language translations', async () => {
         const translations = await client.getLanguageTranslations(languageCode);
         expect(translations.length).toBe(3);
-        expect(translations.find(e => e.file === filePath)?.content).toBe(fileContent);
+        expect(translations.find((e) => e.file === filePath)?.content).toBe(fileContent);
     });
 
     it('should return all translations', async () => {
         const translations = await client.getTranslations();
         expect(translations[languageCode].length).toBe(3);
-        expect(translations[languageCode].find(e => e.file === filePath)?.content).toBe(fileContent);
+        expect(translations[languageCode].find((e) => e.file === filePath)?.content).toBe(fileContent);
     });
 
     it('should not get translations for language if language was not specified', async () => {

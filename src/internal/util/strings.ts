@@ -10,7 +10,7 @@ function isObject(value: any): boolean {
 export function mergeDeep(targetObj: any, sourceObj: any): any {
     const target = targetObj ?? {};
     const source = sourceObj ?? {};
-    Object.keys(source).forEach(key => {
+    Object.keys(source).forEach((key) => {
         if (isObject(source[key])) {
             if (!(key in target)) {
                 target[key] = source[key];

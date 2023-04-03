@@ -108,7 +108,7 @@ export default class OtaClient {
         const languages = await this.listLanguages();
         const translations: Translations = {};
         await Promise.all(
-            languages.map(async language => {
+            languages.map(async (language) => {
                 translations[language] = await this.getLanguageTranslations(language);
             }),
         );
@@ -127,7 +127,7 @@ export default class OtaClient {
         const content = await this.getContent();
         const files = content[language] || [];
         return Promise.all(
-            files.map(async file => {
+            files.map(async (file) => {
                 const content = await this.getFileTranslations(file);
                 return { content, file };
             }),
@@ -143,7 +143,7 @@ export default class OtaClient {
      */
     async getFileTranslations(file: string): Promise<string | any | null> {
         const content = await this.getContent();
-        const fileExists = Object.values(content).some(files => files.includes(file));
+        const fileExists = Object.values(content).some((files) => files.includes(file));
         if (!fileExists) {
             throw new Error(`File ${file} does not exists in manifest content`);
         }
