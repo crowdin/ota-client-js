@@ -33,7 +33,7 @@ const config = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           sidebarCollapsed: false,
-          editUrl: 'https://github.com/crowdin/ota-client-js/tree/main/',
+          editUrl: 'https://github.com/crowdin/ota-client-js/tree/main/website/',
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
         },
         blog: false,
