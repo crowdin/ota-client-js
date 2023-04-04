@@ -23,7 +23,19 @@
   "keywords": [
     "Crowdin",
     "Over-The-Air",
-    "Content Delivery"
+    "OTA",
+    "Content Delivery",
+    "CDN",
+    "instant",
+    "translations",
+    "internationalization",
+    "javascript",
+    "React Native",
+    "i18next",
+    "api",
+    "web",
+    "i18n",
+    "l10n"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -51,7 +63,7 @@
   "bugs": {
     "url": "https://github.com/crowdin/ota-client-js/issues"
   },
-  "homepage": "https://github.com/crowdin/ota-client-js#readme",
+  "homepage": "https://crowdin.github.io/ota-client-js/",
   "directories": {
     "test": "tests"
   },
