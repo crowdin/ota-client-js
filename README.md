@@ -7,7 +7,7 @@ Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to d
 <div align="center">
 
 [**`Live Demo`**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo) &nbsp;|&nbsp;
-[**`OTA JS Client Docs`**](https://crowdin.github.io/ota-client-js)
+[**`Documentation`**](https://crowdin.github.io/ota-client-js)
 
 [![CI](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml/badge.svg)](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml)
 [![npm](https://img.shields.io/npm/v/@crowdin/ota-client?logo=npm&cacheSeconds=1800)](https://www.npmjs.com/package/@crowdin/ota-client)
@@ -17,6 +17,10 @@ Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to d
 [![License](https://img.shields.io/github/license/crowdin/ota-client-js?cacheSeconds=3600)](https://github.com/crowdin/ota-client-js/blob/main/LICENSE)
 
 </div>
+
+## How it works
+
+![How it works](https://github.com/crowdin/ota-client-js/blob/main/website/static/img/scheme-how-it-works.png?raw=true)
 
 ## Works with
 
