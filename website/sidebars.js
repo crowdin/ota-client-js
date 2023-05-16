@@ -37,7 +37,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Tutorials',
-      items: ['tutorials/i18next', 'tutorials/react-native'],
+      items: ['tutorials/i18next', 'tutorials/react-native', 'tutorials/next-intl'],
     },
     {
       type: 'category',

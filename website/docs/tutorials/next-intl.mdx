@@ -1,0 +1,54 @@
+# next-intl
+
+## Installation
+
+```bash npm2yarn
+npm install @crowdin/ota-client
+```
+
+## Usage
+
+Integrating the Crowdin OTA JS client with the [next-intl](https://next-intl-docs.vercel.app/) is pretty straightforward. You just need to provide [messages](https://next-intl-docs.vercel.app/docs/usage/messages#providing-messages) received from the OTA client instead of local files.
+
+For example:
+
+```typescript title="src/pages/index.tsx"
+import otaClient from '@crowdin/ota-client';
+import {GetStaticPropsContext} from 'next';
+import {useTranslations} from 'next-intl';
+import LocaleSwitcher from 'components/LocaleSwitcher';
+import PageLayout from 'components/PageLayout';
+
+export default function Index() {
+  const t = useTranslations('Index');
+
+  return (
+    <PageLayout title={t('title')}>
+      <p>{t('description')}</p>
+      <LocaleSwitcher />
+    </PageLayout>
+  );
+}
+
+export async function getStaticProps({locale}: GetStaticPropsContext) {
+  const client = new otaClient('<distribution-hash>');
+
+  const messages =
+    locale === 'en'
+      ? (await import(`../../messages/en.json`)).default
+      : await client.getStringsByLocale(locale);
+
+  return {
+    props: {
+      messages
+    }
+  };
+}
+```
+
+For more detail, see the working example [here](https://github.com/andrii-bodnar/next-intl/tree/feat/crowdin-ota/examples/example).
+
+## Further reading
+
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)
