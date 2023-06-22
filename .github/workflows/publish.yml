@@ -7,13 +7,19 @@ on:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://registry.npmjs.org/
+
+      - name: Install the latest version of the npm CLI
+        run: npm install -g npm@latest
 
       - name: Install dependencies, build
         run: |
@@ -23,13 +29,13 @@ jobs:
       - name: Publish 'latest'
         if: ${{ github.event.action == 'released' }}
         run: |
-          npm publish
+          npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish 'next'
         if: ${{ github.event.action == 'prereleased' }}
         run: |
-          npm publish --tag next
+          npm publish --tag next --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
