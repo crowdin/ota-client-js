@@ -1,4 +1,10 @@
-[<p align='center'><img src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' data-canonical-src='https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png' width='150' height='150' align='center'/></p>](https://crowdin.com)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://support.crowdin.com/assets/logos/symbol/png/crowdin-symbol-cWhite.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://support.crowdin.com/assets/logos/symbol/png/crowdin-symbol-cDark.png">
+    <img width="150" height="150" width=""src="[https://support.crowdin.com/assets/logos/symbol/png/crowdin-symbol-cDark.png](https://crowdin.com)">
+  </picture>
+</p>
 
 # Crowdin OTA JavaScript client [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fcrowdin%2Fota-client-js&text=Lightweight%20library%20for%20Crowdin%20Over-The-Air%20Content%20Delivery.%20The%20best%20way%20to%20deliver%20translations%20to%20your%20site%20Over-The-Air)&nbsp;[![GitHub Repo stars](https://img.shields.io/github/stars/crowdin/ota-client-js?style=social&cacheSeconds=1800)](https://github.com/crowdin/ota-client-js/stargazers)
 
