@@ -1,0 +1,49 @@
+# Lingui
+
+[Lingui](https://lingui.dev/) is a JavaScript library for internalization (i18n) of JavaScript projects, including React, Vue, Next.js, Node.js, Angular, and others.
+
+## Installation
+
+First, you need to [install and set up](https://lingui.dev/introduction) Lingui for your project.
+
+Then, install the Crowdin OTA Client:
+
+```bash npm2yarn
+npm install @crowdin/ota-client
+```
+
+## Usage
+
+Integrating the Crowdin OTA Client with Lingui is pretty straightforward. You just need to [load](https://lingui.dev/ref/core#i18n) messages received from the OTA client instead of the local files.
+
+```typescript
+import { i18n } from "@lingui/core"
+import otaClient from "@crowdin/ota-client"
+
+export const locales = {
+    en: "English",
+    cs: "Česky",
+}
+
+export const defaultLocale = "en"
+
+export async function dynamicActivate(locale: string) {
+    const client = new otaClient('<distribution-hash>')
+    const messages = await client.getStringsByLocale(locale)
+
+    i18n.load(locale, messages)
+    i18n.activate(locale)
+}
+```
+
+:::tip
+Over-The-Air Content Delivery will work out of the box for the [`minimal`](https://lingui.dev/ref/catalog-formats#json) catalog format.
+
+If you are using the [`po`](https://lingui.dev/ref/catalog-formats#po) format, you will need to set up the [Lingui String Exporter](https://store.crowdin.com/lingui-string-exporter) for your Crowdin project.
+:::
+
+## See Also
+
+- [Lingui String Exporter](https://store.crowdin.com/lingui-string-exporter)
+- [Configuration](configuration)
+- [API](api/classes/OtaClient)
