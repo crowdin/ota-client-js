@@ -45,7 +45,7 @@ export default class OtaClient {
      * Define the global language for the client instance.
      * Default language code to be used if language was not passed as an input argument of the method
      *
-     * @param languageCode language code
+     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
      * @category Helper
      */
     setCurrentLocale(languageCode?: string): void {
@@ -81,6 +81,8 @@ export default class OtaClient {
 
     /**
      * List distribution's files content for a specific language
+     *
+     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
      *
      * @category Content Management
      */
@@ -118,7 +120,7 @@ export default class OtaClient {
     /**
      * Returns translations for each file in the distribution for a given language
      *
-     * @param languageCode language code
+     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
      *
      * @category Content Management
      */
@@ -171,7 +173,7 @@ export default class OtaClient {
     /**
      * Returns translation strings from json-based files for a given language
      *
-     * @param languageCode language code
+     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
      *
      * @category Strings Management
      */
@@ -185,7 +187,7 @@ export default class OtaClient {
      * Returns translation string for language for given key
      *
      * @param key path to the translation string in json file
-     * @param languageCode language code
+     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
      *
      * @category Strings Management
      */
