@@ -27,6 +27,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.0",
     "@tsconfig/docusaurus": "^1.0.5",
+    "@easyops-cn/docusaurus-search-local": "0.36.0",
     "docusaurus-plugin-typedoc": "^0.18.0",
     "typedoc": "^0.23.28",
     "typedoc-plugin-markdown": "^3.14.0",
