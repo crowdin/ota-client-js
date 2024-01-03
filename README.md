@@ -59,6 +59,10 @@ If you would like to contribute please read the [Contributing](/CONTRIBUTING.md)
 
 If you find any problems or would like to suggest a feature, please feel free to file an issue at [Issues Page](https://github.com/crowdin/ota-client-js/issues).
 
+## Security
+
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B40134%2F38c70c366fb689f37e74b5dc3e5d0fce.svg?type=large&issueType=license)](https://app.fossa.com/projects/custom%2B40134%2F38c70c366fb689f37e74b5dc3e5d0fce?ref=badge_large&issueType=license)
+
 ## License
 
 <pre>
