@@ -40,8 +40,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",
-    "@types/nock": "^10.0.3",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.19.49",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
@@ -52,13 +51,9 @@
     "jest-circus": "^29.5.0",
     "jest-junit": "^15.0.0",
     "lint-staged": ">=13",
-    "nock": "^13.3.0",
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.3"
-  },
-  "dependencies": {
-    "axios": "^1"
   },
   "bugs": {
     "url": "https://github.com/crowdin/ota-client-js/issues"
@@ -68,6 +63,6 @@
     "test": "tests"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }
