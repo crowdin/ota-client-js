@@ -8,7 +8,7 @@
 
 # Crowdin OTA JavaScript client [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fcrowdin%2Fota-client-js&text=Lightweight%20library%20for%20Crowdin%20Over-The-Air%20Content%20Delivery.%20The%20best%20way%20to%20deliver%20translations%20to%20your%20site%20Over-The-Air)&nbsp;[![GitHub Repo stars](https://img.shields.io/github/stars/crowdin/ota-client-js?style=social&cacheSeconds=1800)](https://github.com/crowdin/ota-client-js/stargazers)
 
-Lightweight library for Crowdin Over-The-Air Content Delivery. The best way to deliver translations to your site Over-The-Air :dizzy:
+Lightweight library (zero-dependencies) for Crowdin Over-The-Air Content Delivery. The best way to deliver translations to your site Over-The-Air :dizzy:
 
 <div align="center">
 

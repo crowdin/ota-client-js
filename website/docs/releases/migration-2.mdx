@@ -1,0 +1,23 @@
+# Migration from 1.x to 2.x
+
+Migrating to 2.x is a major update, but should be straightforward and easy. The changes that may affect your integration are described below.
+
+### Node.js Version
+
+The minimum required version of Node.js is **18.x**.
+
+### Axios Dependency Removed
+
+In this release, we've removed the Axios dependency from the Crowdin OTA JS client. This change addresses security concerns and streamlines the client by using the native Fetch API instead.
+
+Axios was only used for a few GET operations that can be handled by the native Node.js `fetch`. In addition, developers were experiencing issues with Axios in modern build environments, making it cumbersome to use.
+
+#### Benefits
+
+- **Smaller Bundle**: Reduces the size of the client for better performance.
+- **Improved Security**: Fewer dependencies means less potential vulnerabilities. Now OTA JS client is **zero-dependency** library.
+- **Simplified Setup**: No more manual Axios installation or configuration needed.
+
+#### Migration Steps
+
+If you have a custom Axios instance used for the OTA JS client, you can now remove it and uninstall the Axios package if it's not being used elsewhere. Otherwise, no changes are required.
