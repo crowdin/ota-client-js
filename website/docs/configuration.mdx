@@ -28,7 +28,7 @@ Distribution Hash. See the [Content Delivery](https://support.crowdin.com/conten
 
 Custom HTTP client.
 
-Default: [Axios](https://www.npmjs.com/package/axios) HTTP client
+Default: [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) HTTP client
 
 ### `languageCode`
 
@@ -67,39 +67,6 @@ Disabling the strings cache may result in [additional charges](https://crowdin.c
 Disable deep merge of json-based files for string-based methods and use shallow merge.
 
 Default: `false`
-
-## Axios error
-
-There might be an issue with axios dependency when using webpack 5 or babel build tools (e.g. [React Scripts 5+](https://create-react-app.dev) or [Expo](https://react.dev/learn/start-a-new-react-project#expo)).
-
-In case if you got following error:
-
-```
-ERROR
-Cannot read properties of undefined (reading 'create')
-TypeError: Cannot read properties of undefined (reading 'create')
-```
-
-You will have to manually install [axios 1.6.0](https://github.com/axios/axios)
-
-```bash
-npm i axios
-```
-
-And pass it in OTA Client config
-
-```typescript
-import otaClient from '@crowdin/ota-client';
-
-const client = new otaClient(hash, {
-  httpClient: {
-    get: async (url) => {
-      const res = await axios.get(url);
-      return res.data;
-    }
-  }
-});
-```
 
 ## Further reading
 

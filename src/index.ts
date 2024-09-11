@@ -1,4 +1,4 @@
-import { AxiosHttpClient } from './internal/http/axiosClient';
+import { FetchHttpClient } from './internal/http/fetch';
 import { isJsonFile, mergeDeep } from './internal/util/strings';
 import { ClientConfig, HttpClient, LanguageStrings, LanguageTranslations, Manifest, Translations } from './model';
 
@@ -25,7 +25,7 @@ export default class OtaClient {
      * @param config client config
      */
     constructor(private distributionHash: string, config?: ClientConfig) {
-        this.httpClient = config?.httpClient || new AxiosHttpClient();
+        this.httpClient = config?.httpClient || new FetchHttpClient();
         this.disableManifestCache = !!config?.disableManifestCache;
         this.locale = config?.languageCode;
         this.disableStringsCache = !!config?.disableStringsCache;

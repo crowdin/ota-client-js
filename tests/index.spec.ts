@@ -1,10 +1,8 @@
-import * as nock from 'nock';
 import OtaClient from '../src/index';
 import { Manifest } from '../src/model';
 
 describe('OTA client', () => {
     const now = Date.now();
-    let scope: nock.Scope;
     const languageCode = 'uk';
     const hash = 'testHash';
     const client = new OtaClient(hash);
@@ -37,22 +35,32 @@ describe('OTA client', () => {
     };
 
     beforeAll(() => {
-        scope = nock(OtaClient.BASE_URL)
-            .get(`/${hash}/manifest.json`)
-            .reply(200, manifest)
-            .get(`/${hash}${filePath}?timestamp=${now}`)
-            .times(3)
-            .reply(200, fileContent)
-            .get(`/${hash}${jsonFilePath1}?timestamp=${now}`)
-            .times(3)
-            .reply(200, jsonFileContent1)
-            .get(`/${hash}${jsonFilePath2}?timestamp=${now}`)
-            .times(3)
-            .reply(200, jsonFileContent2);
-    });
-
-    afterAll(() => {
-        scope.done();
+        global.fetch = jest.fn((url) => {
+            switch (url) {
+                case `${OtaClient.BASE_URL}/${hash}/manifest.json`:
+                    return Promise.resolve({
+                        headers: new Headers({ 'Content-Type': 'application/json' }),
+                        json: () => Promise.resolve(manifest),
+                    });
+                case `${OtaClient.BASE_URL}/${hash}${filePath}?timestamp=${now}`:
+                    return Promise.resolve({
+                        headers: new Headers({ 'Content-Type': 'text/plain' }),
+                        text: () => Promise.resolve(fileContent),
+                    });
+                case `${OtaClient.BASE_URL}/${hash}${jsonFilePath1}?timestamp=${now}`:
+                    return Promise.resolve({
+                        headers: new Headers({ 'Content-Type': 'application/json' }),
+                        json: () => Promise.resolve(jsonFileContent1),
+                    });
+                case `${OtaClient.BASE_URL}/${hash}${jsonFilePath2}?timestamp=${now}`:
+                    return Promise.resolve({
+                        headers: new Headers({ 'Content-Type': 'application/json' }),
+                        json: () => Promise.resolve(jsonFileContent2),
+                    });
+                default:
+                    throw new Error('Unknown request');
+            }
+        }) as jest.Mock;
     });
 
     it('should return correct hash', () => {

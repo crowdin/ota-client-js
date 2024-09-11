@@ -1,6 +1,6 @@
 export interface ClientConfig {
     /**
-     * Specify your own http client. Default uses axios
+     * Specify your own http client. Default uses fetch
      */
     httpClient?: HttpClient;
     /**
