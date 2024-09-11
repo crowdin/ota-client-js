@@ -53,7 +53,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Releases',
-      items: ['releases/migration-1'],
+      items: [
+        'releases/migration-1',
+        'releases/migration-2',
+      ],
     },
   ],
 };
