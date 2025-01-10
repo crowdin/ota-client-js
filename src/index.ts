@@ -218,10 +218,10 @@ export default class OtaClient {
         let strings = {};
         for (const filePath of files) {
             let content;
-            if (!!this.stringsCache[filePath]) {
-                content = await this.stringsCache[filePath];
+            if (this.disableStringsCache) {
+                content = await this.getFileTranslations(filePath);
             } else {
-                if (!this.disableStringsCache) {
+                if (!this.stringsCache[filePath]) {
                     this.stringsCache[filePath] = this.getFileTranslations(filePath);
                 }
                 content = await this.stringsCache[filePath];
