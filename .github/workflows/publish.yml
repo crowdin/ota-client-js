@@ -24,12 +24,11 @@ jobs:
 
       - name: Install dependencies, build
         run: |
-          echo '${{ github.event.action }}'
           npm ci
           npm run build
 
       - name: Publish 'latest'
-        if: ${{ github.event.action == 'released' }}
+        # if: ${{ github.event.action == 'released' }}
         run: |
           npm publish --provenance
         env:
