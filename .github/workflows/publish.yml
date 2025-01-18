@@ -24,6 +24,7 @@ jobs:
 
       - name: Install dependencies, build
         run: |
+          echo '${{ github.event.action }}'
           npm ci
           npm run build
 
