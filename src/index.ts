@@ -21,8 +21,8 @@ export default class OtaClient {
     private locale?: string;
 
     /**
-     * @param distributionHash hash of released Crowdin project distribution
-     * @param config client config
+     * @param distributionHash Hash of released Crowdin project distribution
+     * @param config Client config
      */
     constructor(private distributionHash: string, config?: ClientConfig) {
         this.httpClient = config?.httpClient || new FetchHttpClient();
@@ -33,9 +33,9 @@ export default class OtaClient {
     }
 
     /**
-     * Get the distribution hash
+     * Get the distribution hash.
      *
-     * @category Helper
+     * @category Helper Methods
      */
     getHash(): string {
         return this.distributionHash;
@@ -43,48 +43,50 @@ export default class OtaClient {
 
     /**
      * Define the global language for the client instance.
-     * Default language code to be used if language was not passed as an input argument of the method
+     * Default language code to be used if language was not passed as an input argument of the method.
      *
-     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
-     * @category Helper
+     * @category Helper Methods
+     * @param languageCode {@link https://support.crowdin.com/developer/language-codes/ Language Code}
      */
     setCurrentLocale(languageCode?: string): void {
         this.locale = languageCode;
     }
 
     /**
-     * Get the current locale
+     * Get the current locale of the client instance.
      *
-     * @category Helper
+     * @category Helper Methods
      */
     getCurrentLocale(): string | undefined {
         return this.locale;
     }
 
     /**
-     * Get manifest timestamp of distribution
+     * Get distribution's manifest timestamp.
      *
-     * @category Helper
+     * @category Helper Methods
      */
     async getManifestTimestamp(): Promise<number> {
         return (await this.manifest).timestamp;
     }
 
     /**
-     * List distribution's files content
+     * List distribution's files content.
      *
-     * @category Content Management
+     * @category Content Management Methods
+     *
+     * @returns An object mapping {@link https://support.crowdin.com/developer/language-codes/ Language Code} to arrays of strings: `{[languageCode: string]: string[]}`
      */
     async getContent(): Promise<Manifest['content']> {
         return (await this.manifest).content;
     }
 
     /**
-     * List distribution's files content for a specific language
+     * List distribution's files content for a specific language.
      *
-     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
+     * @category Content Management Methods
      *
-     * @category Content Management
+     * @param languageCode {@link https://support.crowdin.com/developer/language-codes/ Language Code}
      */
     async getLanguageContent(languageCode?: string): Promise<string[]> {
         const language = this.getLanguageCode(languageCode);
@@ -93,18 +95,20 @@ export default class OtaClient {
     }
 
     /**
-     * List Crowdin project language codes
+     * List Crowdin project {@link https://support.crowdin.com/developer/language-codes/ language codes}.
      *
-     * @category Helper
+     * @category Helper Methods
      */
     async listLanguages(): Promise<string[]> {
         return Object.keys(await this.getContent());
     }
 
     /**
-     * Returns all translations per each language code
+     * Get all translations for all languages.
      *
-     * @category Content Management
+     * @category Content Management Methods
+     *
+     * @returns All translations per each language code
      */
     async getTranslations(): Promise<Translations> {
         const languages = await this.listLanguages();
@@ -118,11 +122,12 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translations for each file in the distribution for a given language
+     * Get translations for a specific language.
      *
-     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
+     * @category Content Management Methods
      *
-     * @category Content Management
+     * @param languageCode {@link https://support.crowdin.com/developer/language-codes/ Language Code}
+     * @returns Translations for each file in the distribution for a given language (content)
      */
     async getLanguageTranslations(languageCode?: string): Promise<LanguageTranslations[]> {
         const language = this.getLanguageCode(languageCode);
@@ -137,11 +142,12 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translations for a specific file (content)
+     * Get translations for a specific file.
+     *
+     * @category Content Management Methods
      *
      * @param file file content path
-     *
-     * @category Content Management
+     * @returns Translations for a specific file (content)
      */
     async getFileTranslations(file: string): Promise<string | any | null> {
         const content = await this.getContent();
@@ -155,9 +161,11 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translation strings from json-based files for all languages
+     * Get all translation strings for all languages.
      *
-     * @category Strings Management
+     * @category Strings Management Methods
+     *
+     * @returns Translation strings from json-based files for all languages
      */
     async getStrings(): Promise<LanguageStrings> {
         const content = await this.getJsonFiles();
@@ -171,11 +179,12 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translation strings from json-based files for a given language
+     * Get translation strings for a specific language.
      *
-     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
+     * @category Strings Management Methods
      *
-     * @category Strings Management
+     * @param languageCode {@link https://support.crowdin.com/developer/language-codes/ Language Code}
+     * @returns Translation strings from json-based files for a given language
      */
     async getStringsByLocale(languageCode?: string): Promise<any> {
         const language = this.getLanguageCode(languageCode);
@@ -184,12 +193,13 @@ export default class OtaClient {
     }
 
     /**
-     * Returns translation string for language for given key
+     * Get translation string for a specific key.
+     *
+     * @category Strings Management Methods
      *
      * @param key path to the translation string in json file
-     * @param languageCode {@link https://developer.crowdin.com/language-codes Language Code}
-     *
-     * @category Strings Management
+     * @param languageCode {@link https://support.crowdin.com/developer/language-codes/ Language Code}
+     * @returns Translation string for language for given key
      */
     async getStringByKey(key: string[] | string, languageCode?: string): Promise<string | any> {
         const strings = await this.getStringsByLocale(languageCode);
@@ -206,9 +216,9 @@ export default class OtaClient {
     }
 
     /**
-     * Clear the translation string cache
+     * Clear the translation strings cache.
      *
-     * @category Helper
+     * @category Helper Methods
      */
     clearStringsCache(): void {
         this.stringsCache = {};

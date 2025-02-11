@@ -1,16 +1,13 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
+import { themes } from "prism-react-renderer";
+import { PluginOptions } from "@easyops-cn/docusaurus-search-local";
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: 'Crowdin OTA JS Client',
   tagline: 'JavaScript client library for Crowdin Over-The-Air Content Delivery',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://crowdin.github.io/',
   baseUrl: '/ota-client-js',
   organizationName: 'crowdin',
@@ -27,8 +24,7 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
@@ -45,7 +41,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      } satisfies Preset.Options,
     ],
   ],
 
@@ -56,15 +52,12 @@ const config = {
         hashed: true,
         docsRouteBasePath: '/',
         indexBlog: false,
-      }),
+      } satisfies PluginOptions),
     ]
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      // image: 'img/social-card.jpg',
       navbar: {
         title: 'Crowdin OTA JS Client',
         logo: {
@@ -125,19 +118,28 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} OTA JS Client, Crowdin.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: themes.github,
+        darkTheme: themes.dracula,
       },
-    }),
+    }) satisfies Preset.ThemeConfig,
 
   plugins: [
     [
+      // https://typedoc-plugin-markdown.org/plugins/docusaurus/quick-start
       'docusaurus-plugin-typedoc',
       {
-        entryPointStrategy: 'expand',
-        entryPoints: ['../src/index.ts'],
-        tsconfig: '../tsconfig.json',
         plugin: ['typedoc-plugin-rename-defaults'],
+        entryPoints: ['../src/index.ts', '../src/model.ts'],
+        entryPointStrategy: 'expand',
+        outputFileStrategy: 'members',
+        flattenOutputFiles: true,
+        membersWithOwnFile: ['Class'],
+        parametersFormat: 'table',
+        interfacePropertiesFormat: 'table',
+        categoryOrder: ['Strings Management Methods', 'Content Management Methods', 'Helper Methods'],
+        sort: 'source-order',
+        tsconfig: '../tsconfig.json',
+        watch: process.env.TYPEDOC_WATCH,
       }
     ]
   ]
