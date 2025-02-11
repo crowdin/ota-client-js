@@ -1,3 +1,8 @@
+/**
+ * @module Types
+ * @description This module contains the types used in the Crowdin OTA Client.
+ */
+
 export interface ClientConfig {
     /**
      * Specify your own http client. Default uses fetch
