@@ -1,6 +1,7 @@
 /**
+ * This module contains the types used in the Crowdin OTA Client.
+ *
  * @module Types
- * @description This module contains the types used in the Crowdin OTA Client.
  */
 
 export interface ClientConfig {
