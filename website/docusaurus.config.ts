@@ -84,7 +84,7 @@ const config: Config = {
               },
               {
                 label: 'Developer Portal',
-                href: 'https://developer.crowdin.com/crowdin-apps-about/',
+                href: 'https://support.crowdin.com/developer/crowdin-apps-about/',
               },
               {
                 label: 'Knowledge Base',
@@ -100,8 +100,8 @@ const config: Config = {
                 href: 'https://community.crowdin.com/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/crowdin',
+                label: 'X',
+                href: 'https://x.com/crowdin',
               },
             ],
           },
