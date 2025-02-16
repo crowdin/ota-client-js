@@ -24,7 +24,10 @@ export default class OtaClient {
      * @param distributionHash Hash of released Crowdin project distribution
      * @param config Client config
      */
-    constructor(private distributionHash: string, config?: ClientConfig) {
+    constructor(
+        private distributionHash: string,
+        config?: ClientConfig,
+    ) {
         this.httpClient = config?.httpClient || new FetchHttpClient();
         this.disableManifestCache = !!config?.disableManifestCache;
         this.locale = config?.languageCode;
