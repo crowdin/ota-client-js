@@ -12,7 +12,6 @@ Lightweight library (zero-dependencies) for Crowdin Over-The-Air Content Deliver
 
 <div align="center">
 
-[**`Live Demo`**](https://runkit.com/andrii-bodnar/crowdin-ota-js-client-live-demo) &nbsp;|&nbsp;
 [**`Documentation`**](https://crowdin.github.io/ota-client-js)
 
 [![CI](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml/badge.svg)](https://github.com/crowdin/ota-client-js/actions/workflows/basic.yml)
