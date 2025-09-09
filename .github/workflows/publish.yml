@@ -10,16 +10,17 @@ jobs:
     permissions:
       contents: read
       id-token: write
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org/
 
       - name: Install the latest version of the npm CLI
-        run: npm install -g npm@10 #todo upgrade to the latest
+        run: npm install -g npm@latest
 
       - name: Install dependencies, build
         run: |
@@ -28,14 +29,8 @@ jobs:
 
       - name: Publish 'latest'
         if: ${{ github.event.action == 'released' }}
-        run: |
-          npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance
 
       - name: Publish 'next'
         if: ${{ github.event.action == 'prereleased' }}
-        run: |
-          npm publish --tag next --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag next --provenance
