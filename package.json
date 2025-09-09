@@ -1,6 +1,6 @@
 {
   "name": "@crowdin/ota-client",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "JavaScript library for Crowdin OTA Content Delivery",
   "main": "out/index.js",
   "types": "out/index.d.ts",
