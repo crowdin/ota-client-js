@@ -3,6 +3,14 @@
   "version": "2.0.2",
   "description": "JavaScript library for Crowdin OTA Content Delivery",
   "main": "out/index.js",
+  "module": "out/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./out/index.d.ts",
+      "import": "./out/index.mjs",
+      "require": "./out/index.js"
+    }
+  },
   "types": "out/index.d.ts",
   "repository": {
     "type": "git",
@@ -13,8 +21,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "build": "tsup",
+    "watch": "tsup --watch",
     "lint": "eslint --fix \"{src,tests}/**/*.{js,ts}\"",
     "lint-ci": "eslint \"{src,tests}/**/*.{js,ts}\"",
     "test-coverage": "jest --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura --coverageReporters=html",
@@ -50,6 +58,7 @@
     "jest-circus": "^29.5.0",
     "jest-junit": "^15.0.0",
     "lint-staged": ">=13",
+    "tsup": "^8.5.0",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.3",
     "typescript-eslint": "^8.24.0"
