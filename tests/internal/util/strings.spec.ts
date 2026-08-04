@@ -8,6 +8,34 @@ describe('Strings Util', () => {
         expect(isJsonFile(file2)).toBe(true);
     });
 
+    it('should not pollute Object.prototype via __proto__ key', () => {
+        const source = JSON.parse('{"__proto__":{"isAdmin":true}}');
+        const target: any = Object.create(null);
+        mergeDeep(target, source);
+        expect(({} as any).isAdmin).toBeUndefined();
+        expect(Object.prototype.hasOwnProperty.call({}, 'isAdmin')).toBe(false);
+        // __proto__ is stored as a safe own property, not as a prototype mutation
+        expect(Object.prototype.hasOwnProperty.call(target, '__proto__')).toBe(true);
+    });
+
+    it('should not pollute via nested __proto__ key', () => {
+        const source = JSON.parse('{"a":{"__proto__":{"injected":"x"}}}');
+        const target: any = Object.create(null);
+        mergeDeep(target, source);
+        expect(({} as any).injected).toBeUndefined();
+    });
+
+    it('should allow __proto__, constructor, prototype as legitimate translation keys', () => {
+        const source: any = JSON.parse('{"__proto__":"value1","constructor":"value2","prototype":"value3"}');
+        const target: any = Object.create(null);
+        mergeDeep(target, source);
+        expect(Object.prototype.hasOwnProperty.call(target, '__proto__')).toBe(true);
+        expect(Object.prototype.hasOwnProperty.call(target, 'constructor')).toBe(true);
+        expect(Object.prototype.hasOwnProperty.call(target, 'prototype')).toBe(true);
+        expect(Object.getPrototypeOf({})).toBe(Object.prototype);
+        expect((Object.prototype as any).value1).toBeUndefined();
+    });
+
     it('shoud deep merge two objects', () => {
         const target: any = {
             field1: {

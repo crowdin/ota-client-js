@@ -228,7 +228,8 @@ export default class OtaClient {
     }
 
     private async getStringsByFilesAndLocale(files: string[]): Promise<any> {
-        let strings = {};
+        // null prototype prevents translation keys like "__proto__" from polluting Object.prototype via mergeDeep
+        let strings = Object.create(null);
         for (const filePath of files) {
             let content;
             if (this.disableStringsCache) {

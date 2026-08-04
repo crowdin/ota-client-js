@@ -8,17 +8,26 @@ function isObject(value: any): boolean {
 }
 
 export function mergeDeep(targetObj: any, sourceObj: any): any {
-    const target = targetObj ?? {};
+    const target = targetObj ?? Object.create(null);
     const source = sourceObj ?? {};
     Object.keys(source).forEach((key) => {
-        if (isObject(source[key])) {
-            if (!(key in target)) {
-                target[key] = source[key];
-            } else {
-                target[key] = mergeDeep(target[key], source[key]);
-            }
+        const sourceVal = source[key];
+        if (isObject(sourceVal)) {
+            const ownVal = Object.prototype.hasOwnProperty.call(target, key) ? target[key] : undefined;
+            const subTarget = isObject(ownVal) ? ownVal : Object.create(null);
+            Object.defineProperty(target, key, {
+                value: mergeDeep(subTarget, sourceVal),
+                writable: true,
+                enumerable: true,
+                configurable: true,
+            });
         } else {
-            target[key] = source[key];
+            Object.defineProperty(target, key, {
+                value: sourceVal,
+                writable: true,
+                enumerable: true,
+                configurable: true,
+            });
         }
     });
     return target;
