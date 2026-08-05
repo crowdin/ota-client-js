@@ -13,7 +13,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "3.7.0",
+    "@docusaurus/core": "3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
     "@docusaurus/remark-plugin-npm2yarn": "^3.7.0",
     "@mdx-js/react": "^3.1.0",
@@ -23,8 +23,10 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.7.0",
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/plugin-content-docs": "3.10.2",
     "@docusaurus/tsconfig": "^3.7.0",
+    "@docusaurus/types": "3.10.2",
     "@easyops-cn/docusaurus-search-local": "0.48.5",
     "@types/node": "^22.13.1",
     "docusaurus-plugin-typedoc": "^1.2.3",
@@ -47,5 +49,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"
 }

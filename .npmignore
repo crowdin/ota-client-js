@@ -6,6 +6,8 @@ tests
 .prettierrc
 tsconfig.json
 yarn.lock
+pnpm-lock.yaml
+pnpm-workspace.yaml
 node_modules
 website
 .docs-config

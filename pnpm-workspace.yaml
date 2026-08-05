@@ -1,0 +1,4 @@
+# Dependency install scripts are blocked by default; only the packages listed
+# here may run them. esbuild is the native binary behind tsup.
+allowBuilds:
+  esbuild: true

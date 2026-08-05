@@ -79,16 +79,16 @@ The documentation is based on [Docusaurus](https://docusaurus.io/) framework. So
 - Install dependencies:
 
    ```sh
-   npm install
+   pnpm install
    ```
 
 - To build the docs, watch for changes and preview documentation locally at [http://localhost:3000/](http://localhost:3000/):
 
    ```sh
-   npm start
+   pnpm start
    ```
 
-- It's also possible to run `npm run build` for single build. Incremental builds are much faster than the first one as only changed files are built.
+- It's also possible to run `pnpm run build` for single build. Incremental builds are much faster than the first one as only changed files are built.
 
 Open `http://127.0.0.1:3000` in browser
 

@@ -1,0 +1,9 @@
+# The docs site is a standalone project, installed on its own in CI. This file
+# keeps pnpm from walking up and treating it as part of the root workspace.
+
+# Dependency install scripts are blocked by default. These two only print a
+# funding banner, so they stay denied — listing them explicitly keeps installs
+# from failing on the "ignored build scripts" check.
+allowBuilds:
+  core-js: false
+  core-js-pure: false
