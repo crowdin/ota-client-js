@@ -246,7 +246,8 @@ export default class OtaClient {
                 mergeDeep(strings, content);
             }
         }
-        return strings;
+        // spread to a plain object so callers get normal Object.prototype methods (hasOwnProperty, instanceof, etc.)
+        return { ...strings };
     }
 
     private get manifest(): Promise<Manifest> {
