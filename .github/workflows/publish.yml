@@ -22,8 +22,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
           cache: 'pnpm'
 
-      # Publishing stays on the npm CLI: it is what the npm trusted publishing
-      # (OIDC) flow and `npm stage publish` require.
       - name: Install the npm CLI
         run: npm install -g npm@12
 
