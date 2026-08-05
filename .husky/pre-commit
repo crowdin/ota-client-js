@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run lint-ci
-npm test
+pnpm run lint-ci
+pnpm test
