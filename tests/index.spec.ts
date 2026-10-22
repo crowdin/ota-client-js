@@ -108,7 +108,7 @@ describe('OTA client', () => {
 
     it('should not get translations for language if language was not specified', async () => {
         const newClient = new OtaClient(hash);
-        expect(async () => await newClient.getLanguageTranslations()).rejects.toThrowError();
+        expect(async () => await newClient.getLanguageTranslations()).rejects.toThrow();
     });
 
     it('should return translation strings for all languages', async () => {
