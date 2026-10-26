@@ -1,5 +1,7 @@
 out
 node_modules
+.env
+.claude/settings.local.json
 .idea
 coverage
 junit.xml
