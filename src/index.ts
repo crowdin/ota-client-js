@@ -227,6 +227,15 @@ export default class OtaClient {
         this.stringsCache = {};
     }
 
+    /**
+     * Clear the distribution manifest cache, forcing the next call to re-fetch it.
+     *
+     * @category Helper Methods
+     */
+    clearManifestCache(): void {
+        this.manifestHolder = undefined;
+    }
+
     private async getStringsByFilesAndLocale(files: string[]): Promise<any> {
         // null prototype prevents translation keys like "__proto__" from polluting Object.prototype via mergeDeep
         let strings = Object.create(null);
@@ -253,10 +262,18 @@ export default class OtaClient {
     private get manifest(): Promise<Manifest> {
         if (this.manifestHolder && !this.disableManifestCache) {
             return this.manifestHolder;
-        } else {
-            this.manifestHolder = this.httpClient.get(`${OtaClient.BASE_URL}/${this.distributionHash}/manifest.json`);
-            return this.manifestHolder;
         }
+        const manifestPromise = this.httpClient
+            .get<Manifest>(`${OtaClient.BASE_URL}/${this.distributionHash}/manifest.json`)
+            .catch((error) => {
+                // Don't cache a failed request so later calls can retry once connectivity recovers
+                if (this.manifestHolder === manifestPromise) {
+                    this.manifestHolder = undefined;
+                }
+                throw error;
+            });
+        this.manifestHolder = manifestPromise;
+        return manifestPromise;
     }
 
     private getLanguageCode(lang?: string): string {

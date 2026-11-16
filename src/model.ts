@@ -22,18 +22,9 @@ export interface ClientConfig {
      */
     disableStringsCache?: boolean;
     /**
-     * Disable Crowdin languages cache. Default is false
-     */
-    disableLanguagesCache?: boolean;
-    /**
      * Disable deep merge and use shallow merge to merge translation strings from json file
      */
     disableJsonDeepMerge?: boolean;
-    /**
-     * The name of your Crowdin Enterprise organization
-     * If provided, this will fetch languages from the Enterprise API instead of the Crowdin API v2. The name must be a valid Enterprise organization name.
-     */
-    enterpriseOrganizationDomain?: string;
 }
 
 export interface HttpClient {
