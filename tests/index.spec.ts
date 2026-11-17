@@ -128,4 +128,40 @@ describe('OTA client', () => {
         const title = await client.getStringByKey(['application', 'title'], languageCode);
         expect(title).toBe(jsonFileContent1.application.title);
     });
+
+    it('should retry manifest request after a failed request', async () => {
+        let calls = 0;
+        const httpClient = {
+            get: jest.fn(async (url: string): Promise<any> => {
+                calls++;
+                if (url.endsWith('manifest.json')) {
+                    if (calls === 1) {
+                        throw new Error('offline');
+                    }
+                    return manifest;
+                }
+                return jsonFileContent1;
+            }),
+        };
+        const newClient = new OtaClient(hash, { httpClient, languageCode });
+
+        await expect(newClient.getStringsByLocale()).rejects.toThrow('offline');
+        const strings = await newClient.getStringsByLocale();
+        expect(strings.application.title).toBe(jsonFileContent1.application.title);
+    });
+
+    it('should re-fetch manifest after clearManifestCache', async () => {
+        const httpClient = {
+            get: jest.fn(async (): Promise<any> => manifest),
+        };
+        const newClient = new OtaClient(hash, { httpClient });
+
+        await newClient.getManifestTimestamp();
+        await newClient.getManifestTimestamp();
+        expect(httpClient.get).toHaveBeenCalledTimes(1);
+
+        newClient.clearManifestCache();
+        await newClient.getManifestTimestamp();
+        expect(httpClient.get).toHaveBeenCalledTimes(2);
+    });
 });
